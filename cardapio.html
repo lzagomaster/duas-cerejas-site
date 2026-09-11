@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#050505">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Cardápio Duas Cerejas em formato leve e responsivo.">
+  <title>Cardápio - Duas Cerejas</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/cardapio.css">
+  <link rel="icon" type="image/webp" href="assets/img/logo/duas-cerejas-180.webp">
+  <link rel="preload" as="image" href="assets/cardapio/paginas/pagina-01-900.webp" fetchpriority="high">
+  <script>document.documentElement.className='js';</script>
+</head>
+<body class="cardapio-page">
+  <header class="site-header card-header">
+    <a class="brand" href="index.html" aria-label="Duas Cerejas - início">
+      <img src="assets/img/logo/duas-cerejas-420.webp" width="420" height="209" alt="Duas Cerejas">
+    </a>
+    <div class="card-header-actions">
+      <a class="download-link" href="assets/cardapio/cardapio-duas-cerejas.pdf" download>Baixar PDF</a>
+      <a class="header-cta" href="index.html">Início</a>
+    </div>
+  </header>
+
+  <main class="card-main">
+    <div class="card-intro">
+      <p class="eyebrow">Duas Cerejas</p>
+      <h1>Cardápio</h1>
+      <p>Folheie com as setas ou deslize para o lado. No computador, as páginas aparecem como uma revista; no celular, uma página por vez.</p>
+    </div>
+
+    <section class="book-shell" aria-label="Visualizador do cardápio">
+      <div class="book-toolbar">
+        <button id="book-prev" type="button" aria-label="Página anterior">‹</button>
+        <span id="book-counter">1 / 15</span>
+        <button id="book-next" type="button" aria-label="Próxima página">›</button>
+        <span class="toolbar-sep" aria-hidden="true"></span>
+        <button id="zoom-out" type="button" aria-label="Diminuir">−</button>
+        <button id="zoom-in" type="button" aria-label="Ampliar">+</button>
+      </div>
+      <div class="book-viewport" id="book-viewport">
+        <div class="book" id="book">
+          <figure class="page-slot" id="page-left"><img alt="Página do cardápio" draggable="false" decoding="async"></figure>
+          <figure class="page-slot" id="page-right"><img alt="Página do cardápio" draggable="false" decoding="async"></figure>
+        </div>
+      </div>
+      <input class="page-range" id="page-range" type="range" min="1" max="15" value="1" step="1" aria-label="Ir para página">
+    </section>
+  </main>
+
+  <script src="assets/js/conteudo.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/cardapio.js"></script>
+</body>
+</html>

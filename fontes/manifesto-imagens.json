@@ -1,0 +1,1029 @@
+{
+  "source_archive": "Duas_cerejas_site_raiz.zip",
+  "generated_project": "duas_cerejas_site_v1_5_candidata",
+  "images": [
+    {
+      "source": "00_hero/1_Aerado.jpg",
+      "destination_group": "hero",
+      "base": "1-aerado",
+      "source_width": 5171,
+      "source_height": 3447,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/hero/1-aerado-640.webp",
+          "bytes": 17528
+        },
+        {
+          "width": 1280,
+          "height": 853,
+          "path": "assets/img/hero/1-aerado-1280.webp",
+          "bytes": 56604
+        },
+        {
+          "width": 1920,
+          "height": 1280,
+          "path": "assets/img/hero/1-aerado-1920.webp",
+          "bytes": 117326
+        }
+      ]
+    },
+    {
+      "source": "00_hero/2_Salada_de_Frutas.jpg",
+      "destination_group": "hero",
+      "base": "2-salada-de-frutas",
+      "source_width": 5083,
+      "source_height": 3389,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/hero/2-salada-de-frutas-640.webp",
+          "bytes": 20368
+        },
+        {
+          "width": 1280,
+          "height": 853,
+          "path": "assets/img/hero/2-salada-de-frutas-1280.webp",
+          "bytes": 62860
+        },
+        {
+          "width": 1920,
+          "height": 1280,
+          "path": "assets/img/hero/2-salada-de-frutas-1920.webp",
+          "bytes": 127600
+        }
+      ]
+    },
+    {
+      "source": "00_hero/3_Strogonoff_de_Chocolate.jpg",
+      "destination_group": "hero",
+      "base": "3-strogonoff-de-chocolate",
+      "source_width": 6086,
+      "source_height": 4057,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/hero/3-strogonoff-de-chocolate-640.webp",
+          "bytes": 22060
+        },
+        {
+          "width": 1280,
+          "height": 853,
+          "path": "assets/img/hero/3-strogonoff-de-chocolate-1280.webp",
+          "bytes": 68826
+        },
+        {
+          "width": 1920,
+          "height": 1280,
+          "path": "assets/img/hero/3-strogonoff-de-chocolate-1920.webp",
+          "bytes": 135884
+        }
+      ]
+    },
+    {
+      "source": "00_hero/4_Bolos_Caseiro.jpg",
+      "destination_group": "hero",
+      "base": "4-bolos-caseiro",
+      "source_width": 4160,
+      "source_height": 6240,
+      "variants": [
+        {
+          "width": 640,
+          "height": 960,
+          "path": "assets/img/hero/4-bolos-caseiro-640.webp",
+          "bytes": 69642
+        },
+        {
+          "width": 1280,
+          "height": 1920,
+          "path": "assets/img/hero/4-bolos-caseiro-1280.webp",
+          "bytes": 224814
+        },
+        {
+          "width": 1920,
+          "height": 2880,
+          "path": "assets/img/hero/4-bolos-caseiro-1920.webp",
+          "bytes": 453824
+        }
+      ]
+    },
+    {
+      "source": "00_hero/5_Docinhos.jpg",
+      "destination_group": "hero",
+      "base": "5-docinhos",
+      "source_width": 6014,
+      "source_height": 4009,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/hero/5-docinhos-640.webp",
+          "bytes": 30682
+        },
+        {
+          "width": 1280,
+          "height": 853,
+          "path": "assets/img/hero/5-docinhos-1280.webp",
+          "bytes": 84408
+        },
+        {
+          "width": 1920,
+          "height": 1280,
+          "path": "assets/img/hero/5-docinhos-1920.webp",
+          "bytes": 152208
+        }
+      ]
+    },
+    {
+      "source": "00_hero/6_Ninho_com_Morango.jpg",
+      "destination_group": "hero",
+      "base": "6-ninho-com-morango",
+      "source_width": 5126,
+      "source_height": 3417,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/hero/6-ninho-com-morango-640.webp",
+          "bytes": 16526
+        },
+        {
+          "width": 1280,
+          "height": 853,
+          "path": "assets/img/hero/6-ninho-com-morango-1280.webp",
+          "bytes": 55314
+        },
+        {
+          "width": 1920,
+          "height": 1280,
+          "path": "assets/img/hero/6-ninho-com-morango-1920.webp",
+          "bytes": 119208
+        }
+      ]
+    },
+    {
+      "source": "1_chocolate/AERADO-2.jpg",
+      "destination_group": "01-chocolate",
+      "base": "aerado-2",
+      "source_width": 4314,
+      "source_height": 2876,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/01-chocolate/aerado-2-640.webp",
+          "bytes": 24116
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/01-chocolate/aerado-2-1440.webp",
+          "bytes": 108244
+        }
+      ]
+    },
+    {
+      "source": "1_chocolate/AERADO-5.jpg",
+      "destination_group": "01-chocolate",
+      "base": "aerado-5",
+      "source_width": 5171,
+      "source_height": 3447,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/01-chocolate/aerado-5-640.webp",
+          "bytes": 18240
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/01-chocolate/aerado-5-1440.webp",
+          "bytes": 73678
+        }
+      ]
+    },
+    {
+      "source": "1_chocolate/STROGONOFF-1.jpg",
+      "destination_group": "01-chocolate",
+      "base": "strogonoff-1",
+      "source_width": 6240,
+      "source_height": 4160,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/01-chocolate/strogonoff-1-640.webp",
+          "bytes": 24702
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/01-chocolate/strogonoff-1-1440.webp",
+          "bytes": 95416
+        }
+      ]
+    },
+    {
+      "source": "2_brancos/STROGONOFF BRANCO-1.jpg",
+      "destination_group": "02-brancos",
+      "base": "strogonoff-branco-1",
+      "source_width": 5247,
+      "source_height": 3498,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/02-brancos/strogonoff-branco-1-640.webp",
+          "bytes": 21822
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/02-brancos/strogonoff-branco-1-1440.webp",
+          "bytes": 86470
+        }
+      ]
+    },
+    {
+      "source": "2_brancos/STROGONOFF BRANCO-5.jpg",
+      "destination_group": "02-brancos",
+      "base": "strogonoff-branco-5",
+      "source_width": 6240,
+      "source_height": 4160,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/02-brancos/strogonoff-branco-5-640.webp",
+          "bytes": 15812
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/02-brancos/strogonoff-branco-5-1440.webp",
+          "bytes": 55434
+        }
+      ]
+    },
+    {
+      "source": "3_morango/C#U00f3pia de TRUFADO COM MORANGO_DUAS CEREJAS-2.jpg",
+      "destination_group": "03-morango",
+      "base": "copia-de-trufado-com-morango-duas-cerejas-2",
+      "source_width": 5585,
+      "source_height": 3723,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/03-morango/copia-de-trufado-com-morango-duas-cerejas-2-640.webp",
+          "bytes": 28054
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/03-morango/copia-de-trufado-com-morango-duas-cerejas-2-1440.webp",
+          "bytes": 113698
+        }
+      ]
+    },
+    {
+      "source": "3_morango/C#U00f3pia de TRUFADO COM MORANGO_DUAS CEREJAS-5.jpg",
+      "destination_group": "03-morango",
+      "base": "copia-de-trufado-com-morango-duas-cerejas-5",
+      "source_width": 5745,
+      "source_height": 3830,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/03-morango/copia-de-trufado-com-morango-duas-cerejas-5-640.webp",
+          "bytes": 22378
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/03-morango/copia-de-trufado-com-morango-duas-cerejas-5-1440.webp",
+          "bytes": 93462
+        }
+      ]
+    },
+    {
+      "source": "3_morango/MORANGO COM LEITE CONDENSADO-6.jpg",
+      "destination_group": "03-morango",
+      "base": "morango-com-leite-condensado-6",
+      "source_width": 4861,
+      "source_height": 3241,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/03-morango/morango-com-leite-condensado-6-640.webp",
+          "bytes": 19524
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/03-morango/morango-com-leite-condensado-6-1440.webp",
+          "bytes": 71404
+        }
+      ]
+    },
+    {
+      "source": "4_trufados/NINHO TRUFADO-5.jpg",
+      "destination_group": "04-trufados",
+      "base": "ninho-trufado-5",
+      "source_width": 5329,
+      "source_height": 3553,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/04-trufados/ninho-trufado-5-640.webp",
+          "bytes": 22660
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/04-trufados/ninho-trufado-5-1440.webp",
+          "bytes": 92308
+        }
+      ]
+    },
+    {
+      "source": "4_trufados/Trufado-com-coco-prestigio.png",
+      "destination_group": "04-trufados",
+      "base": "trufado-com-coco-prestigio",
+      "source_width": 600,
+      "source_height": 600,
+      "variants": [
+        {
+          "width": 600,
+          "height": 600,
+          "path": "assets/img/catalogo/04-trufados/trufado-com-coco-prestigio-600.webp",
+          "bytes": 54728
+        }
+      ]
+    },
+    {
+      "source": "5_doce_de_Leite/ABACAXI COM DOCE DE LEITE-4.jpg",
+      "destination_group": "05-doce-de-leite",
+      "base": "abacaxi-com-doce-de-leite-4",
+      "source_width": 5406,
+      "source_height": 3604,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/05-doce-de-leite/abacaxi-com-doce-de-leite-4-640.webp",
+          "bytes": 16746
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/05-doce-de-leite/abacaxi-com-doce-de-leite-4-1440.webp",
+          "bytes": 66436
+        }
+      ]
+    },
+    {
+      "source": "5_doce_de_Leite/CHARGE-1.jpg",
+      "destination_group": "05-doce-de-leite",
+      "base": "charge-1",
+      "source_width": 5710,
+      "source_height": 3807,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/05-doce-de-leite/charge-1-640.webp",
+          "bytes": 21150
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/05-doce-de-leite/charge-1-1440.webp",
+          "bytes": 79364
+        }
+      ]
+    },
+    {
+      "source": "6_frutas/ABACAXI COM COCO-6.jpg",
+      "destination_group": "06-frutas",
+      "base": "abacaxi-com-coco-6",
+      "source_width": 5471,
+      "source_height": 3647,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/06-frutas/abacaxi-com-coco-6-640.webp",
+          "bytes": 16398
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/06-frutas/abacaxi-com-coco-6-1440.webp",
+          "bytes": 60206
+        }
+      ]
+    },
+    {
+      "source": "6_frutas/C#U00f3pia de SALADA DE FRUTAS-1.jpg",
+      "destination_group": "06-frutas",
+      "base": "copia-de-salada-de-frutas-1",
+      "source_width": 5173,
+      "source_height": 3449,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/06-frutas/copia-de-salada-de-frutas-1-640.webp",
+          "bytes": 22160
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/06-frutas/copia-de-salada-de-frutas-1-1440.webp",
+          "bytes": 92160
+        }
+      ]
+    },
+    {
+      "source": "6_frutas/SALADA DE FRUTAS-1.jpg",
+      "destination_group": "06-frutas",
+      "base": "salada-de-frutas-1",
+      "source_width": 5083,
+      "source_height": 3389,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/06-frutas/salada-de-frutas-1-640.webp",
+          "bytes": 21654
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/06-frutas/salada-de-frutas-1-1440.webp",
+          "bytes": 81908
+        }
+      ]
+    },
+    {
+      "source": "7_novidades/Pistache de massa de chocolate.png",
+      "destination_group": "07-novidades",
+      "base": "pistache-de-massa-de-chocolate",
+      "source_width": 1800,
+      "source_height": 1800,
+      "variants": [
+        {
+          "width": 640,
+          "height": 640,
+          "path": "assets/img/catalogo/07-novidades/pistache-de-massa-de-chocolate-640.webp",
+          "bytes": 63526
+        },
+        {
+          "width": 1440,
+          "height": 1440,
+          "path": "assets/img/catalogo/07-novidades/pistache-de-massa-de-chocolate-1440.webp",
+          "bytes": 212634
+        }
+      ]
+    },
+    {
+      "source": "7_novidades/Red velvet de pistache.png",
+      "destination_group": "07-novidades",
+      "base": "red-velvet-de-pistache",
+      "source_width": 1800,
+      "source_height": 1800,
+      "variants": [
+        {
+          "width": 640,
+          "height": 640,
+          "path": "assets/img/catalogo/07-novidades/red-velvet-de-pistache-640.webp",
+          "bytes": 86458
+        },
+        {
+          "width": 1440,
+          "height": 1440,
+          "path": "assets/img/catalogo/07-novidades/red-velvet-de-pistache-1440.webp",
+          "bytes": 307328
+        }
+      ]
+    },
+    {
+      "source": "8_mil_folhas/MIL FOLHAS COM BRIGADEIRO-7.jpg",
+      "destination_group": "08-mil-folhas",
+      "base": "mil-folhas-com-brigadeiro-7",
+      "source_width": 5924,
+      "source_height": 3949,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/08-mil-folhas/mil-folhas-com-brigadeiro-7-640.webp",
+          "bytes": 31876
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/08-mil-folhas/mil-folhas-com-brigadeiro-7-1440.webp",
+          "bytes": 119848
+        }
+      ]
+    },
+    {
+      "source": "8_mil_folhas/MIL FOLHAS COM MORANGO AO CREME-3.jpg",
+      "destination_group": "08-mil-folhas",
+      "base": "mil-folhas-com-morango-ao-creme-3",
+      "source_width": 5060,
+      "source_height": 3373,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/08-mil-folhas/mil-folhas-com-morango-ao-creme-3-640.webp",
+          "bytes": 32474
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/08-mil-folhas/mil-folhas-com-morango-ao-creme-3-1440.webp",
+          "bytes": 156928
+        }
+      ]
+    },
+    {
+      "source": "8_mil_folhas/MIL FOLHAS COM MORANGO AO CREME-8.jpg",
+      "destination_group": "08-mil-folhas",
+      "base": "mil-folhas-com-morango-ao-creme-8",
+      "source_width": 5868,
+      "source_height": 3912,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/08-mil-folhas/mil-folhas-com-morango-ao-creme-8-640.webp",
+          "bytes": 22690
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/08-mil-folhas/mil-folhas-com-morango-ao-creme-8-1440.webp",
+          "bytes": 81418
+        }
+      ]
+    },
+    {
+      "source": "9_meio_amargo/CUT_15_AERADO-MEIO-AMARGO.png",
+      "destination_group": "09-meio-amargo",
+      "base": "cut-15-aerado-meio-amargo",
+      "source_width": 1080,
+      "source_height": 1080,
+      "variants": [
+        {
+          "width": 640,
+          "height": 640,
+          "path": "assets/img/catalogo/09-meio-amargo/cut-15-aerado-meio-amargo-640.webp",
+          "bytes": 47574
+        },
+        {
+          "width": 1080,
+          "height": 1080,
+          "path": "assets/img/catalogo/09-meio-amargo/cut-15-aerado-meio-amargo-1080.webp",
+          "bytes": 104618
+        }
+      ]
+    },
+    {
+      "source": "10_zero_acucar/AERADO ZERO-6.jpg",
+      "destination_group": "10-zero-acucar",
+      "base": "aerado-zero-6",
+      "source_width": 5264,
+      "source_height": 3509,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/10-zero-acucar/aerado-zero-6-640.webp",
+          "bytes": 23188
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/10-zero-acucar/aerado-zero-6-1440.webp",
+          "bytes": 93918
+        }
+      ]
+    },
+    {
+      "source": "12_doces/BICHO DE PE#U0301-7.jpg",
+      "destination_group": "12-doces",
+      "base": "bicho-de-pe-7",
+      "source_width": 1550,
+      "source_height": 1282,
+      "variants": [
+        {
+          "width": 640,
+          "height": 529,
+          "path": "assets/img/catalogo/12-doces/bicho-de-pe-7-640.webp",
+          "bytes": 29442
+        },
+        {
+          "width": 1440,
+          "height": 1191,
+          "path": "assets/img/catalogo/12-doces/bicho-de-pe-7-1440.webp",
+          "bytes": 216750
+        }
+      ]
+    },
+    {
+      "source": "12_doces/BRIGADEIRO BRANCO-7.jpg",
+      "destination_group": "12-doces",
+      "base": "brigadeiro-branco-7",
+      "source_width": 1411,
+      "source_height": 1193,
+      "variants": [
+        {
+          "width": 640,
+          "height": 541,
+          "path": "assets/img/catalogo/12-doces/brigadeiro-branco-7-640.webp",
+          "bytes": 24338
+        },
+        {
+          "width": 1411,
+          "height": 1193,
+          "path": "assets/img/catalogo/12-doces/brigadeiro-branco-7-1411.webp",
+          "bytes": 252396
+        }
+      ]
+    },
+    {
+      "source": "12_doces/BRIGADEIRO COM BEIJINHO-5.jpg",
+      "destination_group": "12-doces",
+      "base": "brigadeiro-com-beijinho-5",
+      "source_width": 1189,
+      "source_height": 1022,
+      "variants": [
+        {
+          "width": 640,
+          "height": 550,
+          "path": "assets/img/catalogo/12-doces/brigadeiro-com-beijinho-5-640.webp",
+          "bytes": 42312
+        },
+        {
+          "width": 1189,
+          "height": 1022,
+          "path": "assets/img/catalogo/12-doces/brigadeiro-com-beijinho-5-1189.webp",
+          "bytes": 197812
+        }
+      ]
+    },
+    {
+      "source": "12_doces/CAMAFEU-6.jpg",
+      "destination_group": "12-doces",
+      "base": "camafeu-6",
+      "source_width": 1409,
+      "source_height": 1240,
+      "variants": [
+        {
+          "width": 640,
+          "height": 563,
+          "path": "assets/img/catalogo/12-doces/camafeu-6-640.webp",
+          "bytes": 40750
+        },
+        {
+          "width": 1409,
+          "height": 1240,
+          "path": "assets/img/catalogo/12-doces/camafeu-6-1409.webp",
+          "bytes": 333398
+        }
+      ]
+    },
+    {
+      "source": "12_doces/CAMAFEU-7.jpg",
+      "destination_group": "12-doces",
+      "base": "camafeu-7",
+      "source_width": 1583,
+      "source_height": 1234,
+      "variants": [
+        {
+          "width": 640,
+          "height": 499,
+          "path": "assets/img/catalogo/12-doces/camafeu-7-640.webp",
+          "bytes": 25158
+        },
+        {
+          "width": 1440,
+          "height": 1123,
+          "path": "assets/img/catalogo/12-doces/camafeu-7-1440.webp",
+          "bytes": 170102
+        }
+      ]
+    },
+    {
+      "source": "12_doces/DOCE AVELA#U0303 E CASTANHA-5.jpg",
+      "destination_group": "12-doces",
+      "base": "doce-avela-e-castanha-5",
+      "source_width": 1579,
+      "source_height": 1392,
+      "variants": [
+        {
+          "width": 640,
+          "height": 564,
+          "path": "assets/img/catalogo/12-doces/doce-avela-e-castanha-5-640.webp",
+          "bytes": 34984
+        },
+        {
+          "width": 1440,
+          "height": 1269,
+          "path": "assets/img/catalogo/12-doces/doce-avela-e-castanha-5-1440.webp",
+          "bytes": 217148
+        }
+      ]
+    },
+    {
+      "source": "12_doces/DOCE BEIJINHO-5.jpg",
+      "destination_group": "12-doces",
+      "base": "doce-beijinho-5",
+      "source_width": 1363,
+      "source_height": 1231,
+      "variants": [
+        {
+          "width": 640,
+          "height": 578,
+          "path": "assets/img/catalogo/12-doces/doce-beijinho-5-640.webp",
+          "bytes": 25576
+        },
+        {
+          "width": 1363,
+          "height": 1231,
+          "path": "assets/img/catalogo/12-doces/doce-beijinho-5-1363.webp",
+          "bytes": 137406
+        }
+      ]
+    },
+    {
+      "source": "12_doces/DOCE BRIGADEIRO-5.jpg",
+      "destination_group": "12-doces",
+      "base": "doce-brigadeiro-5",
+      "source_width": 1832,
+      "source_height": 1637,
+      "variants": [
+        {
+          "width": 640,
+          "height": 572,
+          "path": "assets/img/catalogo/12-doces/doce-brigadeiro-5-640.webp",
+          "bytes": 31710
+        },
+        {
+          "width": 1440,
+          "height": 1287,
+          "path": "assets/img/catalogo/12-doces/doce-brigadeiro-5-1440.webp",
+          "bytes": 169830
+        }
+      ]
+    },
+    {
+      "source": "12_doces/OLHO DE SOGRA-8.jpg",
+      "destination_group": "12-doces",
+      "base": "olho-de-sogra-8",
+      "source_width": 1634,
+      "source_height": 1550,
+      "variants": [
+        {
+          "width": 640,
+          "height": 607,
+          "path": "assets/img/catalogo/12-doces/olho-de-sogra-8-640.webp",
+          "bytes": 42828
+        },
+        {
+          "width": 1440,
+          "height": 1366,
+          "path": "assets/img/catalogo/12-doces/olho-de-sogra-8-1440.webp",
+          "bytes": 331260
+        }
+      ]
+    },
+    {
+      "source": "13_caseiro/CENOURA-1.jpg",
+      "destination_group": "13-caseiros",
+      "base": "cenoura-1",
+      "source_width": 4160,
+      "source_height": 6240,
+      "variants": [
+        {
+          "width": 640,
+          "height": 960,
+          "path": "assets/img/catalogo/13-caseiros/cenoura-1-640.webp",
+          "bytes": 48036
+        },
+        {
+          "width": 1440,
+          "height": 2160,
+          "path": "assets/img/catalogo/13-caseiros/cenoura-1-1440.webp",
+          "bytes": 188578
+        }
+      ]
+    },
+    {
+      "source": "13_caseiro/CHOCOLATE-1.jpg",
+      "destination_group": "13-caseiros",
+      "base": "chocolate-1",
+      "source_width": 4160,
+      "source_height": 6240,
+      "variants": [
+        {
+          "width": 640,
+          "height": 960,
+          "path": "assets/img/catalogo/13-caseiros/chocolate-1-640.webp",
+          "bytes": 61776
+        },
+        {
+          "width": 1440,
+          "height": 2160,
+          "path": "assets/img/catalogo/13-caseiros/chocolate-1-1440.webp",
+          "bytes": 259468
+        }
+      ]
+    },
+    {
+      "source": "logo duas cerejas 2.png",
+      "destination_group": "logo",
+      "base": "duas-cerejas",
+      "source_width": 3370,
+      "source_height": 1678,
+      "variants": [
+        {
+          "width": 180,
+          "height": 90,
+          "path": "assets/img/logo/duas-cerejas-180.webp",
+          "bytes": 5568
+        },
+        {
+          "width": 420,
+          "height": 209,
+          "path": "assets/img/logo/duas-cerejas-420.webp",
+          "bytes": 16100
+        },
+        {
+          "width": 900,
+          "height": 448,
+          "path": "assets/img/logo/duas-cerejas-900.webp",
+          "bytes": 41324
+        }
+      ]
+    },
+    {
+      "source": "user_patch_v1_5/mousse_de_chocolate.jpg",
+      "destination_group": "catalogo/01-chocolate",
+      "base": "mousse-de-chocolate-1",
+      "source_width": 2048,
+      "source_height": 1365,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/01-chocolate/mousse-de-chocolate-1-640.webp",
+          "bytes": 22828
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/01-chocolate/mousse-de-chocolate-1-1440.webp",
+          "bytes": 66542
+        }
+      ]
+    },
+    {
+      "source": "user_patch_v1_5/chocolate_branco.jpg",
+      "destination_group": "catalogo/02-brancos",
+      "base": "chocolate-branco-1",
+      "source_width": 2048,
+      "source_height": 1365,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/02-brancos/chocolate-branco-1-640.webp",
+          "bytes": 18902
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/02-brancos/chocolate-branco-1-1440.webp",
+          "bytes": 58706
+        }
+      ]
+    },
+    {
+      "source": "user_patch_v1_5/red_velvet_de_pistache.jpg",
+      "destination_group": "catalogo/07-novidades",
+      "base": "red-velvet-de-pistache-1",
+      "source_width": 2048,
+      "source_height": 1365,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/07-novidades/red-velvet-de-pistache-1-640.webp",
+          "bytes": 35584
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/07-novidades/red-velvet-de-pistache-1-1440.webp",
+          "bytes": 114986
+        }
+      ]
+    },
+    {
+      "source": "user_patch_v1_5/meio_amargo.jpg",
+      "destination_group": "catalogo/09-meio-amargo",
+      "base": "meio-amargo-1",
+      "source_width": 2048,
+      "source_height": 1365,
+      "variants": [
+        {
+          "width": 640,
+          "height": 427,
+          "path": "assets/img/catalogo/09-meio-amargo/meio-amargo-1-640.webp",
+          "bytes": 23440
+        },
+        {
+          "width": 1440,
+          "height": 960,
+          "path": "assets/img/catalogo/09-meio-amargo/meio-amargo-1-1440.webp",
+          "bytes": 76210
+        }
+      ]
+    },
+    {
+      "source": "/mnt/data/ghostwriter_images/context/c5a1c0e8-3892-566a-9e8a-d013db4130eb.jpg",
+      "destination_group": "12-doces-gallery",
+      "base": "doce-mao-brigadeiro",
+      "source_width": 1365,
+      "source_height": 2048,
+      "variants": [
+        {
+          "width": 640,
+          "height": 800,
+          "path": "assets/img/catalogo/12-doces/doce-mao-brigadeiro-640.webp",
+          "bytes": 17776
+        },
+        {
+          "width": 1080,
+          "height": 1350,
+          "path": "assets/img/catalogo/12-doces/doce-mao-brigadeiro-1080.webp",
+          "bytes": 38620
+        }
+      ]
+    },
+    {
+      "source": "/mnt/data/ghostwriter_images/context/9307e49b-f4b4-5500-82cc-7595fca37d0a.jpg",
+      "destination_group": "12-doces-gallery",
+      "base": "doce-mao-branco-caramelizado",
+      "source_width": 1365,
+      "source_height": 2048,
+      "variants": [
+        {
+          "width": 640,
+          "height": 800,
+          "path": "assets/img/catalogo/12-doces/doce-mao-branco-caramelizado-640.webp",
+          "bytes": 12722
+        },
+        {
+          "width": 1080,
+          "height": 1350,
+          "path": "assets/img/catalogo/12-doces/doce-mao-branco-caramelizado-1080.webp",
+          "bytes": 26636
+        }
+      ]
+    },
+    {
+      "source": "/mnt/data/ghostwriter_images/context/e9c836f7-289a-57fd-a7fd-180201666048.jpg",
+      "destination_group": "12-doces-gallery",
+      "base": "doce-mao-dois-sabores",
+      "source_width": 1365,
+      "source_height": 2048,
+      "variants": [
+        {
+          "width": 640,
+          "height": 800,
+          "path": "assets/img/catalogo/12-doces/doce-mao-dois-sabores-640.webp",
+          "bytes": 14914
+        },
+        {
+          "width": 1080,
+          "height": 1350,
+          "path": "assets/img/catalogo/12-doces/doce-mao-dois-sabores-1080.webp",
+          "bytes": 31690
+        }
+      ]
+    }
+  ]
+}
