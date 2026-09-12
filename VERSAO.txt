@@ -1,3 +1,4 @@
-duas_cerejas_site_v1_7_candidata
-STATUS: CANDIDATA - aguardando aprovação do usuário
-BASE VISUAL: V1.5 aprovada + substituição do trecho Doces (sem chuva)
+duas_cerejas_site_v1_8_patch_swipe_timing
+STATUS: CANDIDATA - aguardando teste e aprovação explícita do usuário
+BASE DESTA RODADA: ZIP duas_cerejas_site enviado pelo usuário (V1.7 candidata)
+PATCH: hero mais rápido + navegação por etapas (wheel/swipe) + sincronização/alinhamento da categoria Doces

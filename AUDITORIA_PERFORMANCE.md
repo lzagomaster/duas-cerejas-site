@@ -56,3 +56,15 @@ A V1.5 substitui apenas quatro imagens de categorias por novos derivados WebP 64
 - Substituída por 3 fotografias reais em cards otimizados (`640w` + `1080w`).
 - Efeito baseado somente em `opacity` e `transform`, mantendo custo de renderização baixo.
 - Fundo preto ajuda a mascarar a troca de capítulo e reduz ruído visual.
+
+## V1.8 - motor por etapas / swipe
+- Removido o vínculo contínuo entre `scrollY` e cada frame da experiência.
+- A home não mantém mais `requestAnimationFrame` ativo a cada evento de scroll; somente uma mudança de etapa dispara transições.
+- Desktop: wheel/trackpad com acumulador e trava de gesto; a inércia não pode atravessar múltiplas categorias.
+- Mobile: swipe vertical por distância mínima, sem posição intermediária entre capítulos.
+- Hero: autoplay de 4,3 s -> 2,6 s; crossfade e zoom encurtados; autoplay pausado fora do Hero.
+- Doces: 3 cards com dimensões iguais e deslocamento final zero; entrada sequencial curta baseada apenas em `opacity` e `transform`.
+- Nenhuma biblioteca, Canvas, filtro pesado ou processamento por frame foi adicionado.
+- QA de lógica executada com o JavaScript real da versão: burst de wheel avançou uma única etapa, sequência completa chegou a Doces/Caseiros/final e navegação reversa funcionou.
+- QA de layout do bloco Doces executada em 1440x900 e 390x844: os três cards terminaram com topo e base idênticos nos dois tamanhos.
+- A versão continua candidata e exige teste local do usuário antes de qualquer promoção de base.

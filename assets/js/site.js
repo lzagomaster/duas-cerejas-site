@@ -4,61 +4,123 @@ const section=document.getElementById("inicio");
 const welcome=document.getElementById("welcome-layer");
 const storyLayer=document.getElementById("story-layer");
 if(!section||!welcome||!storyLayer)return;
-const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
-const motion=(window.DC_CONTENT&&DC_CONTENT.motion)||{};
-const openingVh=Number(motion.openingVh)||54;
+
 const heroCopy=section.querySelector(".hero-copy");
 const heroControls=section.querySelector(".hero-controls");
 const scrollCue=section.querySelector(".scroll-cue");
-const welcomeAnchor=document.getElementById("boas-vindas");
-const storyAnchor=document.getElementById("sabores");
-const clamp=v=>Math.max(0,Math.min(1,v));
-const smooth=v=>{v=clamp(v);return v*v*(3-2*v)};
-welcome.classList.add("is-active");
-let start=0,range=1,raf=0,last=-1;
-function measure(){
-  const r=section.getBoundingClientRect();
-  start=scrollY+r.top;
-  range=Math.max(1,innerHeight*(openingVh/100));
-  if(welcomeAnchor)welcomeAnchor.style.top=`${Math.round(openingVh*.31)}vh`;
-  if(storyAnchor)storyAnchor.style.top=`${openingVh}vh`;
-  last=-1;
-  request();
+const cats=((window.DC_CONTENT&&DC_CONTENT.categories)||[]).filter(item=>!item.hidden);
+const motion=(window.DC_CONTENT&&DC_CONTENT.motion)||{};
+const transitionMs=Math.max(360,Number(motion.stageTransitionMs)||520);
+const wheelThreshold=Math.max(30,Number(motion.wheelThreshold)||56);
+const swipeThreshold=Math.max(30,Number(motion.swipeThreshold)||46);
+const stages=[{kind:"hero"},{kind:"welcome"},...cats.map((item,index)=>({kind:"category",categoryIndex:index,id:item.id})),{kind:"final"}];
+let current=0,busy=false,unlockTimer=0,wheelAccum=0,wheelCommitted=false,wheelQuietTimer=0,touchStart=null;
+
+const clampIndex=value=>Math.max(0,Math.min(stages.length-1,value));
+function setHeroVisible(show){
+  const opacity=show?"1":"0";
+  section.style.setProperty("--hero-exit",show?"0":"1");
+  if(heroCopy){heroCopy.style.opacity=opacity;heroCopy.style.transform=show?"translate3d(0,0,0)":"translate3d(0,-10px,0)"}
+  if(heroControls)heroControls.style.opacity=opacity;
+  if(scrollCue)scrollCue.style.opacity=opacity;
 }
-function render(){
-  raf=0;
-  const p=clamp((scrollY-start)/range);
-  if(Math.abs(p-last)<.001)return;
-  last=p;
-
-  // Hero -> preto: o palco nao se move; apenas a luz/copia desaparecem.
-  const heroOut=smooth((p-.06)/.20);
-  const heroDark=smooth((p-.10)/.25);
-  section.style.setProperty("--hero-exit",heroDark.toFixed(4));
-  const heroOpacity=(1-heroOut).toFixed(4);
-  if(heroCopy){heroCopy.style.opacity=heroOpacity;heroCopy.style.transform=`translate3d(0,${(-10*heroOut).toFixed(2)}px,0)`}
-  if(heroControls)heroControls.style.opacity=heroOpacity;
-  if(scrollCue)scrollCue.style.opacity=heroOpacity;
-
-  // Boas-vindas entra sobre o mesmo preto e sai antes do produto dominar.
-  const welcomeIn=smooth((p-.27)/.17);
-  const welcomeOut=1-smooth((p-.61)/.17);
-  const welcomeOpacity=clamp(welcomeIn*welcomeOut);
-  welcome.style.opacity=welcomeOpacity.toFixed(4);
-  if(!reduced){
-    const scale=.985+.015*welcomeIn;
-    const y=(1-welcomeIn)*14-(1-welcomeOut)*8;
-    welcome.style.transform=`translate3d(0,${y.toFixed(2)}px,0) scale(${scale.toFixed(4)})`;
-  }
-  welcome.style.pointerEvents=welcomeOpacity>.72?"auto":"none";
-
-  // O proprio palco dos sabores nasce por cima. Nao existe segunda foto/pagina subindo.
-  const storyIn=smooth((p-.73)/.27);
-  storyLayer.style.opacity=storyIn.toFixed(4);
+function setWelcomeVisible(show){
+  welcome.style.opacity=show?"1":"0";
+  welcome.style.transform=show?"translate3d(0,0,0) scale(1)":"translate3d(0,12px,0) scale(.988)";
+  welcome.style.pointerEvents=show?"auto":"none";
 }
-function request(){if(!raf&&!document.hidden)raf=requestAnimationFrame(render)}
-addEventListener("scroll",request,{passive:true});
-addEventListener("resize",()=>{clearTimeout(window.__dcOpeningResize);window.__dcOpeningResize=setTimeout(measure,120)},{passive:true});
-document.addEventListener("visibilitychange",request);
-measure();
+function setStoryVisible(show){storyLayer.style.opacity=show?"1":"0"}
+function emit(stage,index,initial){
+  window.DC_STAGE_STATE={index,stage,total:stages.length};
+  document.dispatchEvent(new CustomEvent("dc:stagechange",{detail:{...stage,index,total:stages.length,initial:!!initial}}));
+}
+function applyStage(index,{initial=false}={}){
+  index=clampIndex(index);
+  if(index===current&&!initial)return;
+  current=index;
+  const stage=stages[current];
+  section.dataset.scene=stage.kind;
+  section.dataset.stage=String(current);
+  setHeroVisible(stage.kind==="hero");
+  setWelcomeVisible(stage.kind==="welcome");
+  setStoryVisible(stage.kind==="category"||stage.kind==="final");
+  emit(stage,current,initial);
+
+  clearTimeout(unlockTimer);
+  if(initial){busy=false;return}
+  busy=true;
+  unlockTimer=setTimeout(()=>{busy=false},transitionMs);
+}
+function go(next){
+  const target=clampIndex(next);
+  if(target===current||busy)return false;
+  applyStage(target);
+  return true;
+}
+function next(){return go(current+1)}
+function prev(){return go(current-1)}
+
+function releaseWheelGesture(){
+  wheelAccum=0;
+  wheelCommitted=false;
+}
+addEventListener("wheel",event=>{
+  if(event.ctrlKey)return;
+  event.preventDefault();
+  clearTimeout(wheelQuietTimer);
+  wheelQuietTimer=setTimeout(releaseWheelGesture,190);
+  if(wheelCommitted||busy)return;
+  wheelAccum+=event.deltaY;
+  if(Math.abs(wheelAccum)<wheelThreshold)return;
+  wheelCommitted=true;
+  const direction=wheelAccum>0?1:-1;
+  wheelAccum=0;
+  go(current+direction);
+},{passive:false});
+
+addEventListener("touchstart",event=>{
+  if(event.touches.length!==1)return;
+  const t=event.touches[0];
+  touchStart={x:t.clientX,y:t.clientY,time:performance.now()};
+},{passive:true});
+addEventListener("touchend",event=>{
+  if(!touchStart||!event.changedTouches.length){touchStart=null;return}
+  const t=event.changedTouches[0],dx=t.clientX-touchStart.x,dy=t.clientY-touchStart.y;
+  touchStart=null;
+  if(busy||Math.abs(dy)<swipeThreshold||Math.abs(dy)<Math.abs(dx)*1.12)return;
+  go(current+(dy<0?1:-1));
+},{passive:true});
+addEventListener("touchcancel",()=>{touchStart=null},{passive:true});
+
+addEventListener("keydown",event=>{
+  const target=event.target;
+  if(target&&/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(target.tagName))return;
+  let handled=true;
+  if(event.key==="ArrowDown"||event.key==="PageDown"||event.key===" ")next();
+  else if(event.key==="ArrowUp"||event.key==="PageUp")prev();
+  else if(event.key==="Home")go(0);
+  else if(event.key==="End")go(stages.length-1);
+  else handled=false;
+  if(handled)event.preventDefault();
+});
+
+document.addEventListener("click",event=>{
+  const link=event.target.closest('a[href^="#"]');
+  if(!link)return;
+  const href=link.getAttribute("href");
+  let target=null;
+  if(href==="#inicio")target=0;
+  else if(href==="#boas-vindas")target=1;
+  else if(href==="#sabores")target=2;
+  if(target===null)return;
+  event.preventDefault();
+  go(target);
+});
+
+const hash=location.hash;
+if(hash==="#boas-vindas")current=1;
+else if(hash==="#sabores")current=2;
+else current=0;
+window.DC_STAGE_API={next,prev,go,get index(){return current},get stages(){return stages.slice()}};
+applyStage(current,{initial:true});
 })();

@@ -1,15 +1,25 @@
-# Duas Cerejas - Site V1.7 Candidata
+# Duas Cerejas - Site V1.8 Patch Candidato
 
 Esta versao e um patch acumulativo da linha V1.x e **nao e considerada aprovada automaticamente**.
 
 ## Como testar
 1. Extraia o ZIP inteiro.
 2. Abra `index.html` com Chrome, Edge, Firefox ou Safari. Nao e necessario instalar nada.
-3. Role a pagina desde o Hero sem parar no limite das secoes. O enquadramento da tela deve permanecer fixo: as cenas se substituem por cima umas das outras.
-4. Confira a sequencia Hero -> preto -> `Seja bem-vindo a Duas Cerejas` -> preto -> Chocolate.
-5. Continue por Brancos, Morango e demais categorias e confirme que o timing nome x fotografia continua correto.
-6. Confirme que **Sem Lactose nao aparece** nesta versao.
-7. Use o botao **Cardapio** do cabecalho e teste normalmente o visualizador.
+3. No computador, use a roda do mouse/trackpad. Cada gesto deve **parar exatamente em uma etapa**: Hero -> boas-vindas -> Chocolate -> Brancos -> Morango...
+4. No celular, faça **swipe vertical**. Um swipe deve avançar ou voltar exatamente uma etapa, sem ficar no meio da transição.
+5. No Hero, confirme que as fotos agora trocam mais rápido e com transição mais curta.
+6. Vá até **Doces** e confira se o título aparece sincronizado com as três fotos, que entram rapidamente em sequência e terminam alinhadas na mesma altura.
+7. Continue para **Caseiros** e depois para o logo final; faça o caminho de volta para conferir a navegação reversa.
+8. Confirme que **Sem Lactose nao aparece** nesta versao e que o botão **Cardapio** continua funcionando normalmente.
+
+
+## Atualização V1.8 - navegação por etapas
+
+A V1.8 muda somente o motor de navegação da home e o timing das cenas. Em vez de relacionar cada frame à quantidade exata de pixels rolados, a experiência agora trabalha com capítulos discretos. No desktop, wheel/trackpad avança uma etapa; no mobile, o gesto equivalente é swipe vertical.
+
+Isso resolve o principal problema desta rodada: foto e texto não podem mais ficar em posições diferentes da mesma transição, pois cada categoria tem um único estado visual fechado. A categoria **Doces** usa o mesmo princípio; as três fotos entram em sequência curta, mas terminam com o mesmo topo, altura e base.
+
+O Hero também foi acelerado para aproximadamente **2,6 segundos por foto** e deixa de executar autoplay quando o visitante já avançou para outra etapa.
 
 ## Correcao estrutural V1.4
 A V1.3 ainda possuia dois palcos: uma pre-visualizacao de Chocolate/Aerado na abertura e, em seguida, o palco real das categorias entrando fisicamente de baixo. Isso podia produzir a sensacao de uma foto solta e depois uma tela inteira subindo.

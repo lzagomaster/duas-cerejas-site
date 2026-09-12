@@ -29,3 +29,37 @@ html.no-js .story-layer,html.no-js .welcome-layer{display:none}
 @media(max-width:760px){.story-sweets-gallery{padding:84px 14px 170px}.story-sweets-rail{width:min(96vw,560px);gap:8px}.story-sweet-card{border-radius:16px}}
 @media(orientation:landscape) and (max-height:560px){.story-sweets-gallery{padding:52px 110px 92px}.story-sweets-rail{width:min(76vw,900px)}}
 @media(prefers-reduced-motion:reduce){.story-sweets-gallery,.story-sweet-card{transition:none;will-change:auto}}
+
+/* V1.8 patch - navegacao por etapas (wheel + swipe) e sincronizacao de cenas */
+body.home-page{height:100vh;height:100svh;overflow:hidden;overscroll-behavior:none;touch-action:pan-x;background:#050505}
+body.home-page main,body.home-page #conteudo{height:100%}
+body.home-page .cinematic{height:100vh!important;height:100svh!important;overflow:hidden}
+body.home-page .cinematic-stage{position:relative;top:auto;height:100vh;height:100svh}
+body.home-page .cinematic-anchor{display:none}
+body.home-page .hero-image{transition:opacity .30s ease,transform 3.05s cubic-bezier(.2,.65,.25,1)}
+body.home-page .hero-exit-curtain{transition:opacity .34s ease}
+body.home-page .cinematic .hero-copy,body.home-page .cinematic .hero-controls,body.home-page .cinematic .scroll-cue{transition:opacity .26s ease,transform .34s cubic-bezier(.2,.7,.2,1)}
+body.home-page .story-layer{transition:opacity .34s ease}
+body.home-page .cinematic .welcome-layer{transition:opacity .34s ease,transform .42s cubic-bezier(.2,.7,.2,1)}
+body.home-page .story-image{opacity:0;transform:translate3d(0,0,0) scale(1.025);transition:opacity .38s ease,transform .50s cubic-bezier(.2,.68,.2,1)}
+body.home-page .story-image.is-visible{opacity:1;transform:translate3d(0,0,0) scale(1)}
+body.home-page .story-copy{opacity:0;transform:translate3d(0,15px,0);transition:opacity .28s ease,transform .38s cubic-bezier(.2,.7,.2,1)}
+body.home-page .story-copy.is-visible{opacity:1;transform:translate3d(0,0,0)}
+body.home-page .story-progress b{transition:transform .38s cubic-bezier(.2,.7,.2,1)}
+body.home-page .brand-finale{opacity:0;transform:scale(.965);transition:opacity .34s ease,transform .46s cubic-bezier(.2,.7,.2,1)}
+body.home-page .brand-finale.is-visible{opacity:1;transform:scale(1)}
+body.home-page .story-sweets-gallery{opacity:0;transition:opacity .26s ease;padding-top:clamp(92px,11vh,126px)}
+body.home-page .story-sweets-gallery.is-active{opacity:1}
+body.home-page .story-sweets-rail{align-items:center}
+body.home-page .story-sweet-card{opacity:0;transform:translate3d(0,24px,0) scale(.97);transition:opacity .30s ease,transform .36s cubic-bezier(.2,.72,.2,1);will-change:opacity,transform}
+body.home-page .story-sweets-gallery.is-active .story-sweet-card{opacity:1;transform:translate3d(0,0,0) scale(1)}
+body.home-page .story-sweets-gallery.is-active .story-sweet-card:nth-child(1){transition-delay:.04s}
+body.home-page .story-sweets-gallery.is-active .story-sweet-card:nth-child(2){transition-delay:.12s}
+body.home-page .story-sweets-gallery.is-active .story-sweet-card:nth-child(3){transition-delay:.20s}
+@media(max-width:760px){body.home-page .story-sweets-gallery{padding:88px 12px 168px}body.home-page .story-sweets-rail{width:min(96vw,560px);gap:8px}}
+@media(prefers-reduced-motion:reduce){body.home-page .hero-image,body.home-page .hero-exit-curtain,body.home-page .story-layer,body.home-page .cinematic .welcome-layer,body.home-page .story-image,body.home-page .story-copy,body.home-page .brand-finale,body.home-page .story-sweets-gallery,body.home-page .story-sweet-card{transition:none}}
+/* V1.8 micro-otimizacoes de composicao */
+body.home-page{touch-action:pan-x pinch-zoom}
+body.home-page .hero-image{transform:scale(1.018);transition-duration:.30s,2.25s}
+body.home-page .hero-image.is-visible{transform:scale(1)}
+body.home-page .story-sweet-card img{filter:none}

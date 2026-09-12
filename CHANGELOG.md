@@ -1,3 +1,15 @@
+## V1.8 Patch - Swipe, timing e performance (2026-09-11)
+- Patch acumulativo aplicado sobre o ZIP V1.7 candidata enviado pelo usuário; **não promove esta versão a base aprovada automaticamente**.
+- Home deixa de depender da posição contínua do scroll para sincronizar foto e texto.
+- Navegação passa a funcionar por **etapas fechadas**: roda do mouse/trackpad no desktop e **swipe vertical** no celular avançam ou voltam exatamente um capítulo por gesto.
+- Adicionada trava de gesto para evitar pular várias categorias por inércia do trackpad ou por uma rolagem mais forte.
+- Hero acelerado: autoplay reduzido de 4,3 s para 2,6 s e transição visual encurtada, diminuindo a sensação de lentidão/peso.
+- O Hero pausa completamente quando deixa de ser a cena ativa, evitando trabalho em segundo plano.
+- Categorias agora trocam foto e texto pelo mesmo estado discreto, eliminando o desencontro de timing causado por diferentes quantidades de scroll.
+- Categoria **Doces** refeita para o novo motor: título e galeria entram juntos em animação curta e previsível; as 3 fotos aparecem rapidamente em sequência e terminam perfeitamente alinhadas.
+- Removidos cálculos por `requestAnimationFrame` disparados durante scroll na home; as transições passam a depender apenas de eventos de mudança de etapa e CSS com `opacity`/`transform`.
+- Cardápio permanece independente e sem mudança funcional.
+
 
 ## V1.7 Candidata
 - Substitui a ideia de “chuva de docinhos” por um trecho mais clean e profissional na categoria **Doces**.
