@@ -89,3 +89,6 @@ Esta iteração **descarta a chuva de doces da tentativa anterior** e volta para
 3. Verifique se as 3 fotos aparecem em sequência, alinhadas, ainda no mesmo trecho de scroll.
 4. Continue rolando e confirme que a próxima categoria assume normalmente.
 5. Teste também em tela menor para conferir responsividade.
+
+## Patch V1.8.1 - retorno do Hero
+Foi corrigida a continuidade do carrossel quando a ultima fotografia volta para a primeira. O teste principal desta versao e deixar o Hero completar pelo menos dois ciclos inteiros sem interagir e conferir se a sequencia 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 1 permanece suave, sem quadro preto, salto, pausa anormal ou texto fora da fotografia.

@@ -1,4 +1,4 @@
-duas_cerejas_site_v1_8_patch_swipe_timing
+duas_cerejas_site_v1_8_1_patch_loop_hero
 STATUS: CANDIDATA - aguardando teste e aprovação explícita do usuário
-BASE DESTA RODADA: ZIP duas_cerejas_site enviado pelo usuário (V1.7 candidata)
-PATCH: hero mais rápido + navegação por etapas (wheel/swipe) + sincronização/alinhamento da categoria Doces
+BASE DESTA RODADA: V1.8 candidata (patch swipe/timing)
+PATCH: correção cirúrgica do loop do Hero, especialmente na transição da 6ª foto de volta para a 1ª

@@ -87,3 +87,21 @@
 - PDF original mantido para download.
 - Todas as fotografias do acervo convertidas para WebP com nomes normalizados.
 - Sem frameworks, sem dependencias externas e sem servidor obrigatorio.
+
+## V1.8.1 CANDIDATA - Correcao do retorno do Hero (2026-09-11)
+
+### Diagnostico
+- O Hero reutilizava dois elementos `<img>` alternadamente.
+- O handler `onload` da imagem reutilizada podia permanecer associado ao ciclo anterior.
+- Em imagens ja em cache/pre-carregadas, sobretudo na volta da 6a foto para a 1a, isso podia criar uma segunda chamada de transicao ou deixar o estado interno atrasado em relacao ao crossfade.
+- O autoplay usava `setInterval`, entao o relogio continuava correndo enquanto a imagem ainda estava em transicao/carregamento.
+
+### Correcao
+- Handlers `onload/onerror` sao limpos antes de cada reutilizacao de imagem.
+- Cada troca recebe um token proprio; callbacks antigos sao ignorados.
+- O indice, `front` e `back` passam a ser atualizados no inicio efetivo do crossfade, e nao somente no fim.
+- O autoplay passa a usar `setTimeout` encadeado, contado depois da conclusao de cada troca, evitando sobreposicao e deriva entre ciclos.
+- Mantidos os 2,6 s configurados para o Hero, o swipe/wheel por etapas e todas as demais alteracoes da V1.8.
+
+### Status
+- Versao candidata. Nao deve ser promovida a base oficial antes do teste e aprovacao explicita do usuario.
