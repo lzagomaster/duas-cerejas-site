@@ -1,4 +1,4 @@
-# Duas Cerejas - Site V1.8.2 Patch Candidato
+# Duas Cerejas - Site V1.8.3 Patch Candidato
 
 Esta versao e um patch acumulativo da linha V1.x e **nao e considerada aprovada automaticamente**.
 
@@ -6,24 +6,26 @@ Esta versao e um patch acumulativo da linha V1.x e **nao e considerada aprovada 
 1. Extraia o ZIP inteiro.
 2. Abra `index.html` com Chrome, Edge, Firefox ou Safari. Nao e necessario instalar nada.
 3. No computador, use a roda do mouse/trackpad. Cada gesto deve **parar exatamente em uma etapa**: Hero -> boas-vindas -> Chocolate -> Brancos -> Morango...
-4. No celular, faça **swipe vertical**. Swipe curto avança/volta 1 etapa; swipe médio, 2; swipe longo, até 3 etapas. O destino deve sempre encaixar em uma categoria completa.
-5. No Hero, confirme que as fotos agora trocam mais rápido e com transição mais curta.
-6. Vá até **Doces** e confira se o título aparece sincronizado com as três fotos, que entram rapidamente em sequência e terminam alinhadas na mesma altura.
-7. Continue para **Caseiros** e depois para o logo final; faça o caminho de volta para conferir a navegação reversa.
-8. Confirme que **Sem Lactose nao aparece** nesta versao e que o botão **Cardapio** continua funcionando normalmente.
+4. No celular, faça **swipe vertical**: gesto curto deve mover 1 etapa, médio 2 e longo até 3.
+5. Faça alguns swipes longos para frente e para trás e confirme que **foto e texto sempre aparecem juntos** na categoria de destino.
+6. No Hero, confirme que o loop corrigido da V1.8.1 continua normal, inclusive na volta da 6ª para a 1ª foto.
+7. Vá até **Doces** usando também um swipe longo e confira se o título e as 3 fotos entram corretamente e permanecem alinhados.
+8. Continue para **Caseiros** e depois para o logo final; volte rapidamente com swipes longos para validar a navegação reversa.
+9. Confirme que **Sem Lactose nao aparece** nesta versao e que o botão **Cardapio** continua funcionando normalmente.
 
 
+## Patch V1.8.3 - swipe multietapas sem perder foto/texto
 
-## Atualização V1.8.2 - swipe multietapas
+A V1.8.2 foi descartada porque o salto direto de 2 ou 3 categorias podia alcançar uma fotografia que ainda não estava preparada pelo motor originalmente feito para navegar uma etapa por vez.
 
-A V1.8.1 foi aprovada pelo usuário e passa a ser a base desta rodada.
+A V1.8.3 volta à **V1.8.1 aprovada** e reimplementa o salto de forma segura. O alcance máximo do gesto é antecipado com preload de até três categorias, e a categoria de destino só entra visualmente quando a fotografia correspondente está pronta. Texto e fotografia são liberados no mesmo ciclo de renderização. Também existe uma proteção por token para impedir que um carregamento antigo, terminado depois de outro swipe, substitua a categoria atual.
 
-No celular, a distância vertical do gesto agora controla a quantidade de etapas:
-- gesto curto: 1 etapa;
-- gesto médio (aprox. 22% da altura da tela): 2 etapas;
-- gesto longo (aprox. 42% da altura da tela): 3 etapas.
+No celular:
+- swipe curto: 1 etapa;
+- swipe médio: 2 etapas;
+- swipe longo: 3 etapas.
 
-O salto é feito diretamente para o estado de destino, preservando o sincronismo entre fotografia e texto e evitando executar várias animações intermediárias. A roda do mouse/trackpad no desktop continua avançando uma etapa por gesto para evitar saltos involuntários.
+No desktop permanece 1 etapa por gesto de wheel/trackpad.
 
 ## Atualização V1.8 - navegação por etapas
 

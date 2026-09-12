@@ -1,4 +1,5 @@
-duas_cerejas_site_v1_8_2_patch_swipe_multietapas
+duas_cerejas_site_v1_8_3_patch_swipe_sincronizado
 STATUS: CANDIDATA - aguardando teste e aprovação explícita do usuário
-BASE APROVADA: V1.8.1 (loop do Hero corrigido)
-PATCH: swipe vertical proporcional ao gesto, com avanço/retorno de 1, 2 ou até 3 etapas
+BASE APROVADA: V1.8.1 - correção do loop do Hero
+V1.8.2: DESCARTADA - regressão de sincronismo ao saltar múltiplas categorias
+PATCH: swipe de 1/2/3 etapas refeito com pré-carregamento do destino, sincronismo de foto + texto e proteção contra carregamentos atrasados
