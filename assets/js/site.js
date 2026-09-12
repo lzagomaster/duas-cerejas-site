@@ -90,8 +90,7 @@ addEventListener("touchend",event=>{
   const distance=Math.abs(dy);
   if(busy||distance<swipeThreshold||distance<Math.abs(dx)*1.12)return;
 
-  // Um gesto pode avancar ate tres etapas. A distancia do dedo decide
-  // o salto, mantendo swipe curto preciso e swipe longo rapido.
+  // Swipe curto = 1 etapa; medio = 2; longo = 3.
   const viewport=Math.max(1,window.innerHeight||document.documentElement.clientHeight||1);
   const ratio=distance/viewport;
   let steps=1;

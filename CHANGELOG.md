@@ -1,14 +1,3 @@
-## V1.8.3 Candidata - Swipe multietapas sincronizado (2026-09-11)
-- Construída novamente a partir da **V1.8.1 aprovada**; a V1.8.2 foi descartada por regressão visual.
-- Swipe no celular continua proporcional ao gesto: curto = 1 etapa, médio = 2, longo = 3.
-- O motor de imagens agora pré-carrega até **3 categorias à frente**, exatamente o alcance máximo de um swipe longo.
-- Foto e texto da categoria de destino só são revelados juntos quando a imagem de destino está pronta.
-- Adicionado token de renderização para ignorar `onload` atrasado de uma categoria abandonada por um novo swipe.
-- Handlers de imagem são limpos antes de reutilizar as duas superfícies do palco, evitando callbacks antigos.
-- A galeria de **Doces** passa a ser pré-carregada até 3 categorias antes, preservando o sincronismo também quando o usuário salta diretamente até ela.
-- Desktop permanece com wheel/trackpad em uma etapa por gesto.
-- Hero V1.8.1 preservado sem alteração funcional.
-
 ## V1.8 Patch - Swipe, timing e performance (2026-09-11)
 - Patch acumulativo aplicado sobre o ZIP V1.7 candidata enviado pelo usuário; **não promove esta versão a base aprovada automaticamente**.
 - Home deixa de depender da posição contínua do scroll para sincronizar foto e texto.
@@ -116,3 +105,11 @@
 
 ### Status
 - Versao candidata. Nao deve ser promovida a base oficial antes do teste e aprovacao explicita do usuario.
+
+## V1.8.4 candidata - sincronismo bidirecional do swipe
+- Base: V1.8.1 aprovada. V1.8.2 e V1.8.3 permanecem descartadas/não aprovadas.
+- Swipe móvel volta a permitir 1, 2 ou 3 etapas conforme a distância do gesto.
+- Corrigido o desalinhamento que surgia ao chegar ao final e navegar de volta.
+- A camada de imagem ativa agora é confirmada no mesmo instante em que o texto entra; o timer posterior serve apenas para limpeza.
+- Pré-carregamento passa a cobrir até 3 categorias para frente e para trás.
+- Callbacks atrasados são invalidados por token de renderização, evitando que uma imagem antiga reapareça após outro swipe.
