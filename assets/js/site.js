@@ -85,10 +85,20 @@ addEventListener("touchstart",event=>{
 },{passive:true});
 addEventListener("touchend",event=>{
   if(!touchStart||!event.changedTouches.length){touchStart=null;return}
-  const t=event.changedTouches[0],dx=t.clientX-touchStart.x,dy=t.clientY-touchStart.y;
+  const start=touchStart,t=event.changedTouches[0],dx=t.clientX-start.x,dy=t.clientY-start.y;
   touchStart=null;
-  if(busy||Math.abs(dy)<swipeThreshold||Math.abs(dy)<Math.abs(dx)*1.12)return;
-  go(current+(dy<0?1:-1));
+  const distance=Math.abs(dy);
+  if(busy||distance<swipeThreshold||distance<Math.abs(dx)*1.12)return;
+
+  // No touch, a distancia do gesto define quantas etapas avancam.
+  // Curto = 1, medio = 2, longo = 3. Isso deixa o usuario voltar
+  // rapidamente pelo catalogo sem perder a precisao dos gestos curtos.
+  const viewport=Math.max(1,window.innerHeight||document.documentElement.clientHeight||1);
+  const ratio=distance/viewport;
+  let steps=1;
+  if(ratio>=0.42)steps=3;
+  else if(ratio>=0.22)steps=2;
+  go(current+(dy<0?steps:-steps));
 },{passive:true});
 addEventListener("touchcancel",()=>{touchStart=null},{passive:true});
 

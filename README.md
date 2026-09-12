@@ -1,4 +1,4 @@
-# Duas Cerejas - Site V1.8 Patch Candidato
+# Duas Cerejas - Site V1.8.2 Patch Candidato
 
 Esta versao e um patch acumulativo da linha V1.x e **nao e considerada aprovada automaticamente**.
 
@@ -6,12 +6,24 @@ Esta versao e um patch acumulativo da linha V1.x e **nao e considerada aprovada 
 1. Extraia o ZIP inteiro.
 2. Abra `index.html` com Chrome, Edge, Firefox ou Safari. Nao e necessario instalar nada.
 3. No computador, use a roda do mouse/trackpad. Cada gesto deve **parar exatamente em uma etapa**: Hero -> boas-vindas -> Chocolate -> Brancos -> Morango...
-4. No celular, faça **swipe vertical**. Um swipe deve avançar ou voltar exatamente uma etapa, sem ficar no meio da transição.
+4. No celular, faça **swipe vertical**. Swipe curto avança/volta 1 etapa; swipe médio, 2; swipe longo, até 3 etapas. O destino deve sempre encaixar em uma categoria completa.
 5. No Hero, confirme que as fotos agora trocam mais rápido e com transição mais curta.
 6. Vá até **Doces** e confira se o título aparece sincronizado com as três fotos, que entram rapidamente em sequência e terminam alinhadas na mesma altura.
 7. Continue para **Caseiros** e depois para o logo final; faça o caminho de volta para conferir a navegação reversa.
 8. Confirme que **Sem Lactose nao aparece** nesta versao e que o botão **Cardapio** continua funcionando normalmente.
 
+
+
+## Atualização V1.8.2 - swipe multietapas
+
+A V1.8.1 foi aprovada pelo usuário e passa a ser a base desta rodada.
+
+No celular, a distância vertical do gesto agora controla a quantidade de etapas:
+- gesto curto: 1 etapa;
+- gesto médio (aprox. 22% da altura da tela): 2 etapas;
+- gesto longo (aprox. 42% da altura da tela): 3 etapas.
+
+O salto é feito diretamente para o estado de destino, preservando o sincronismo entre fotografia e texto e evitando executar várias animações intermediárias. A roda do mouse/trackpad no desktop continua avançando uma etapa por gesto para evitar saltos involuntários.
 
 ## Atualização V1.8 - navegação por etapas
 

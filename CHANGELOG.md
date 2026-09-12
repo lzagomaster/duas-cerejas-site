@@ -105,3 +105,24 @@
 
 ### Status
 - Versao candidata. Nao deve ser promovida a base oficial antes do teste e aprovacao explicita do usuario.
+
+## V1.8.2 CANDIDATA - Swipe multietapas (2026-09-11)
+
+### Base
+- V1.8.1 aprovada explicitamente pelo usuário e adotada como base oficial desta rodada.
+
+### Alteração
+- Swipe vertical curto continua avançando/voltando 1 etapa.
+- Swipe médio passa a mover 2 etapas.
+- Swipe longo passa a mover até 3 etapas.
+- A quantidade é definida pela distância percorrida pelo dedo em relação à altura da tela, mantendo comportamento proporcional em celulares de tamanhos diferentes.
+- O destino continua limitado ao primeiro/último estágio, sem ultrapassar o Hero ou o logo final.
+- Wheel/trackpad no desktop permanece em 1 etapa por gesto.
+
+### Performance e sincronismo
+- O gesto multietapas salta diretamente ao estado final; categorias intermediárias não são animadas em cascata.
+- Nenhuma imagem, biblioteca ou processamento contínuo adicional foi incluído.
+- O mecanismo de foto + texto por estado fechado da V1.8 permanece intacto.
+
+### Status
+- Versão candidata. Só passa a ser a nova base após teste e aprovação explícita do usuário.
