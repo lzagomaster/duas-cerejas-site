@@ -1,3 +1,48 @@
+## V1.9.4 CANDIDATA - Hero 2s + cardápio vertical (2026-09-14)
+- Base: V1.9.3, que o usuário confirmou como perfeita antes desta rodada.
+- Hero reduzido de 2,6 s para **2,0 s por fotografia**.
+- Cardápio deixou o modo revista/livro horizontal e passou para leitura **vertical tradicional**, com as 15 páginas em sequência.
+- Removidos swipe lateral, setas de troca de página, slider de página e lógica de páginas duplas.
+- Mantido o PDF original para download.
+- Página 1 do cardápio continua priorizada; páginas seguintes usam `loading="lazy"` para reduzir custo inicial.
+- Adicionado contador discreto da página atualmente visível usando `IntersectionObserver`.
+- Removidos `conteudo.js` e `site.js` da página de cardápio por não serem necessários ao novo visualizador, reduzindo JavaScript nessa rota.
+- Coverflow das lojas e fachadas da V1.9.3 foram preservados sem alteração.
+- Versão segue **CANDIDATA** até aprovação explícita.
+
+## V1.9.3 CANDIDATA - fachadas nas lojas (2026-09-14)
+- Base tecnica: V1.9.2 que o usuario confirmou como funcional no coverflow/navegacao.
+- Mantido integralmente o comportamento aprovado do coverflow das lojas: swipe lateral, card central em destaque, dots, setas e scroll vertical Hero -> Lojas.
+- Adicionadas as fotografias reais das fachadas das 6 unidades diretamente nos cards do carrossel.
+- As imagens foram extraidas da pagina publica de Lojas da Duas Cerejas e incorporadas localmente ao projeto, evitando dependencia externa durante o teste.
+- Fachadas salvas em WebP e carregadas com `loading="lazy"` para reduzir impacto inicial na home.
+- Layout dos cards ajustado para acomodar foto + informacoes sem perder legibilidade nem quebrar a area rolavel lateral.
+- Rodada pontual: nenhum catalogo antigo foi reativado; a home segue com somente Hero -> Lojas.
+- Versao segue **CANDIDATA** e nao vira base oficial sem nova aprovacao explicita.
+
+## V1.9.2 CANDIDATA - Coverflow navegavel das lojas (2026-09-14)
+- Reconstruida a navegacao das lojas para priorizar usabilidade, nao apenas o efeito 3D.
+- Corrigido o contenedor flex/grid que podia crescer junto com os cards e eliminar a area rolavel lateral.
+- `scroll-snap` alterado de obrigatorio para `proximity`, permitindo controlar livremente a posicao durante o gesto.
+- Profundidade passa a acompanhar continuamente a distancia de cada card ao centro usando apenas `transform`, `opacity` e `z-index`.
+- Swipe em celular voltou a usar scroll/inercia nativos do navegador; mouse/caneta recebem drag dedicado no desktop.
+- Clique/toque em card lateral centraliza a loja; adicionada paginacao visual/clicavel com 6 posicoes.
+- Mantidos Hero -> Lojas como as unicas duas etapas da home e intervalo do Hero em 2,6 s.
+- QA interna: desktop 1440 px confirmou 3632 px de largura rolavel e drag 0 -> 877 px; mobile 390 px confirmou 1961 px rolaveis e gesto 0 -> 282 px.
+- QA de gestos confirmou Hero -> Lojas, swipe horizontal sem trocar de etapa e retorno Lojas -> Hero.
+- Versao segue **CANDIDATA** e nao se torna base oficial sem aprovacao explicita.
+
+## V1.9.0 CANDIDATA - Home enxuta: Hero -> Lojas (2026-09-14)
+- Patch aplicado diretamente sobre o ZIP reenviado pelo usuario nesta rodada; **nao promove a versao automaticamente a base aprovada**.
+- Home reduzida temporariamente a somente duas etapas verticais: **Hero** e **Lojas**.
+- Boas-vindas, catalogos/categorias e final antigo deixam de ser carregados pelo `index.html`, mas seus arquivos permanecem preservados no projeto.
+- Hero mantido com as 6 fotografias e intervalo de 2,6 s; com crossfade curto, a permanencia nominal fica abaixo de 3 s por foto.
+- Criada tela de lojas com 6 unidades, telefone, WhatsApp, endereco, horario e atalho para rotas.
+- Carrossel horizontal inspirado no Responsive Faux 3D Content Scroller, adaptado para cards institucionais e desempenho: scroll nativo + `scroll-snap` + `transform`/`opacity`, sem biblioteca ou Canvas.
+- Novo `home-conteudo.js` reduz o conteudo interpretado na home somente ao Hero e aos parametros de navegacao.
+- Logo final reduzido e incorporado ao rodape da propria tela de lojas.
+- Cardapio permanece separado e funcional.
+
 ## V1.8 Patch - Swipe, timing e performance (2026-09-11)
 - Patch acumulativo aplicado sobre o ZIP V1.7 candidata enviado pelo usuário; **não promove esta versão a base aprovada automaticamente**.
 - Home deixa de depender da posição contínua do scroll para sincronizar foto e texto.
@@ -113,3 +158,14 @@
 - A camada de imagem ativa agora é confirmada no mesmo instante em que o texto entra; o timer posterior serve apenas para limpeza.
 - Pré-carregamento passa a cobrir até 3 categorias para frente e para trás.
 - Callbacks atrasados são invalidados por token de renderização, evitando que uma imagem antiga reapareça após outro swipe.
+
+## V1.9.1 CANDIDATA - correcao do Faux 3D das lojas (2026-09-14)
+- Base reconstruida a partir do ZIP-fonte reenviado pelo usuario; V1.9.0 permanece nao aprovada.
+- Corrigido o carrossel de lojas que podia ficar visualmente plano.
+- Removida a dependencia funcional de `animation-timeline:view(inline)` para a profundidade dos cards.
+- Mantido o `scroll-snap` horizontal nativo e adicionada mascara lateral inspirada no Responsive Faux 3D Content Scroller de Jhey.
+- A perspectiva passa a ser calculada somente durante o deslocamento horizontal, via `requestAnimationFrame`, atualizando apenas `transform` e `opacity` dos seis cards.
+- Card central fica frontal; cards laterais recuam e rotacionam progressivamente, inclusive durante o arraste com o dedo.
+- `prefers-reduced-motion` continua respeitado.
+- Hero permanece com intervalo de 2,6 s e a home continua reduzida a duas etapas: Hero -> Lojas.
+- Status: candidata; aguarda teste e aprovacao explicita.

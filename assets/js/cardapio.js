@@ -1,1 +1,39 @@
-(()=>{"use strict";const cfg=window.DC_CONTENT&&DC_CONTENT.cardapio;if(!cfg)return;const total=cfg.pages,left=document.querySelector("#page-left img"),right=document.querySelector("#page-right img"),rightSlot=document.getElementById("page-right"),book=document.getElementById("book"),viewport=document.getElementById("book-viewport"),counter=document.getElementById("book-counter"),range=document.getElementById("page-range"),prev=document.getElementById("book-prev"),next=document.getElementById("book-next");let page=1,zoom=1,downX=null;const mq=matchMedia("(min-width: 900px)");function files(n){const s=String(n).padStart(2,"0"),base=`${cfg.base}${s}-`;return{src:`${base}900.webp`,srcset:`${base}520.webp 520w, ${base}900.webp 900w, ${base}1400.webp 1400w`}}function load(img,n){const f=files(n);img.src=f.src;img.srcset=f.srcset;img.sizes=mq.matches?"(min-width: 900px) 43vw, 92vw":"92vw";img.alt=`Cardápio Duas Cerejas - página ${n}`}function spread(){if(!mq.matches)return[page];if(page===1)return[1];const p=page%2===0?page:page-1;return[p,Math.min(total,p+1)]}function pre(n){if(n<1||n>total)return;const f=files(n),i=new Image();i.decoding="async";i.srcset=f.srcset;i.sizes="50vw";i.src=f.src}function draw(animate=true){const pages=spread();if(animate)book.classList.add("is-changing");setTimeout(()=>{load(left,pages[0]);if(pages.length>1&&pages[1]!==pages[0]){rightSlot.hidden=false;load(right,pages[1])}else rightSlot.hidden=true;counter.textContent=pages.length>1?`${pages[0]}–${pages[1]} / ${total}`:`${pages[0]} / ${total}`;range.value=String(page);prev.disabled=page<=1;next.disabled=(mq.matches?page>=total-1:page>=total);pre(Math.min(total,pages[pages.length-1]+1));pre(Math.max(1,pages[0]-1));book.classList.remove("is-changing")},animate?85:0)}function go(delta){if(mq.matches){if(delta>0)page=page===1?2:Math.min(total,page+2);else page=page<=2?1:Math.max(2,page-2)}else page=Math.max(1,Math.min(total,page+delta));draw()}prev.addEventListener("click",()=>go(-1));next.addEventListener("click",()=>go(1));range.addEventListener("input",()=>{page=Number(range.value);draw(false)});mq.addEventListener("change",()=>draw(false));document.addEventListener("keydown",e=>{if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1)});viewport.addEventListener("pointerdown",e=>{downX=e.clientX},{passive:true});viewport.addEventListener("pointerup",e=>{if(downX===null)return;const d=e.clientX-downX;downX=null;if(Math.abs(d)>48)go(d<0?1:-1)},{passive:true});function applyZoom(){book.style.setProperty("--book-scale",String(zoom));viewport.scrollTo({left:0,top:0,behavior:"auto"})}document.getElementById("zoom-in").addEventListener("click",()=>{zoom=Math.min(1.55,zoom+.1);applyZoom()});document.getElementById("zoom-out").addEventListener("click",()=>{zoom=Math.max(.8,zoom-.1);applyZoom()});draw(false);pre(2);})();
+(()=>{"use strict";
+const pages=[...document.querySelectorAll(".pdf-page")];
+const counter=document.getElementById("pdf-counter");
+if(!pages.length||!counter)return;
+let current=1;
+function setCurrent(page){
+  const next=Math.max(1,Math.min(pages.length,Number(page)||1));
+  if(next===current)return;
+  current=next;
+  counter.textContent=`Página ${current} de ${pages.length}`;
+}
+if("IntersectionObserver" in window){
+  const visibility=new Map();
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>visibility.set(Number(entry.target.dataset.page),entry.intersectionRatio));
+    let best=current,bestRatio=-1;
+    visibility.forEach((ratio,page)=>{if(ratio>bestRatio){bestRatio=ratio;best=page}});
+    if(bestRatio>0)setCurrent(best);
+  },{root:null,rootMargin:"-18% 0px -46% 0px",threshold:[0,.15,.3,.5,.7,.9,1]});
+  pages.forEach(page=>observer.observe(page));
+}else{
+  let ticking=false;
+  addEventListener("scroll",()=>{
+    if(ticking)return;
+    ticking=true;
+    requestAnimationFrame(()=>{
+      const targetY=innerHeight*.38;
+      let best=1,distance=Infinity;
+      pages.forEach(page=>{
+        const rect=page.getBoundingClientRect();
+        const d=Math.abs((rect.top+Math.min(rect.height,targetY))-targetY);
+        if(d<distance){distance=d;best=Number(page.dataset.page)||1}
+      });
+      setCurrent(best);
+      ticking=false;
+    });
+  },{passive:true});
+}
+})();

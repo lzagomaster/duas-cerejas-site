@@ -1,38 +1,39 @@
 (()=>{"use strict";
 document.addEventListener("visibilitychange",()=>{document.documentElement.toggleAttribute("data-hidden",document.hidden)});
-const section=document.getElementById("inicio");
-const welcome=document.getElementById("welcome-layer");
-const storyLayer=document.getElementById("story-layer");
-if(!section||!welcome||!storyLayer)return;
 
-const heroCopy=section.querySelector(".hero-copy");
-const heroControls=section.querySelector(".hero-controls");
-const scrollCue=section.querySelector(".scroll-cue");
-const cats=((window.DC_CONTENT&&DC_CONTENT.categories)||[]).filter(item=>!item.hidden);
+const section=document.getElementById("inicio");
+const hero=document.getElementById("hero-stage");
+const stores=document.getElementById("lojas");
+if(!section||!hero||!stores)return;
+
+const track=document.getElementById("stores-track");
+const cards=track?[...track.querySelectorAll(".store-card")]:[];
+const prevStore=document.getElementById("stores-prev");
+const nextStore=document.getElementById("stores-next");
+const pagination=document.getElementById("stores-pagination");
 const motion=(window.DC_CONTENT&&DC_CONTENT.motion)||{};
-const transitionMs=Math.max(360,Number(motion.stageTransitionMs)||520);
+const transitionMs=Math.max(320,Number(motion.stageTransitionMs)||460);
 const wheelThreshold=Math.max(30,Number(motion.wheelThreshold)||56);
 const swipeThreshold=Math.max(30,Number(motion.swipeThreshold)||46);
-const stages=[{kind:"hero"},{kind:"welcome"},...cats.map((item,index)=>({kind:"category",categoryIndex:index,id:item.id})),{kind:"final"}];
-let current=0,busy=false,unlockTimer=0,wheelAccum=0,wheelCommitted=false,wheelQuietTimer=0,touchStart=null;
+const stages=[{kind:"hero",hash:"#inicio"},{kind:"stores",hash:"#lojas"}];
+
+let current=location.hash==="#lojas"?1:0;
+let busy=false,unlockTimer=0,wheelAccum=0,wheelCommitted=false,wheelQuietTimer=0,touchStart=null;
 
 const clampIndex=value=>Math.max(0,Math.min(stages.length-1,value));
-function setHeroVisible(show){
-  const opacity=show?"1":"0";
-  section.style.setProperty("--hero-exit",show?"0":"1");
-  if(heroCopy){heroCopy.style.opacity=opacity;heroCopy.style.transform=show?"translate3d(0,0,0)":"translate3d(0,-10px,0)"}
-  if(heroControls)heroControls.style.opacity=opacity;
-  if(scrollCue)scrollCue.style.opacity=opacity;
+
+function toggleLayer(el,show){
+  el.classList.toggle("is-active",show);
+  el.setAttribute("aria-hidden",show?"false":"true");
+  if("inert" in el)el.inert=!show;
 }
-function setWelcomeVisible(show){
-  welcome.style.opacity=show?"1":"0";
-  welcome.style.transform=show?"translate3d(0,0,0) scale(1)":"translate3d(0,12px,0) scale(.988)";
-  welcome.style.pointerEvents=show?"auto":"none";
-}
-function setStoryVisible(show){storyLayer.style.opacity=show?"1":"0"}
 function emit(stage,index,initial){
   window.DC_STAGE_STATE={index,stage,total:stages.length};
   document.dispatchEvent(new CustomEvent("dc:stagechange",{detail:{...stage,index,total:stages.length,initial:!!initial}}));
+}
+function syncHash(stage){
+  if(!history.replaceState)return;
+  history.replaceState(null,"",stage.hash);
 }
 function applyStage(index,{initial=false}={}){
   index=clampIndex(index);
@@ -41,9 +42,9 @@ function applyStage(index,{initial=false}={}){
   const stage=stages[current];
   section.dataset.scene=stage.kind;
   section.dataset.stage=String(current);
-  setHeroVisible(stage.kind==="hero");
-  setWelcomeVisible(stage.kind==="welcome");
-  setStoryVisible(stage.kind==="category"||stage.kind==="final");
+  toggleLayer(hero,stage.kind==="hero");
+  toggleLayer(stores,stage.kind==="stores");
+  syncHash(stage);
   emit(stage,current,initial);
 
   clearTimeout(unlockTimer);
@@ -60,12 +61,11 @@ function go(next){
 function next(){return go(current+1)}
 function prev(){return go(current-1)}
 
-function releaseWheelGesture(){
-  wheelAccum=0;
-  wheelCommitted=false;
-}
+function releaseWheelGesture(){wheelAccum=0;wheelCommitted=false}
 addEventListener("wheel",event=>{
   if(event.ctrlKey)return;
+  if(current===1&&track&&track.matches(":hover")&&Math.abs(event.deltaX)>0){return}
+  if(Math.abs(event.deltaX)>Math.abs(event.deltaY))return;
   event.preventDefault();
   clearTimeout(wheelQuietTimer);
   wheelQuietTimer=setTimeout(releaseWheelGesture,190);
@@ -81,7 +81,7 @@ addEventListener("wheel",event=>{
 addEventListener("touchstart",event=>{
   if(event.touches.length!==1)return;
   const t=event.touches[0];
-  touchStart={x:t.clientX,y:t.clientY,time:performance.now()};
+  touchStart={x:t.clientX,y:t.clientY};
 },{passive:true});
 addEventListener("touchend",event=>{
   if(!touchStart||!event.changedTouches.length){touchStart=null;return}
@@ -89,20 +89,213 @@ addEventListener("touchend",event=>{
   touchStart=null;
   const distance=Math.abs(dy);
   if(busy||distance<swipeThreshold||distance<Math.abs(dx)*1.12)return;
-
-  // Swipe curto = 1 etapa; medio = 2; longo = 3.
-  const viewport=Math.max(1,window.innerHeight||document.documentElement.clientHeight||1);
-  const ratio=distance/viewport;
-  let steps=1;
-  if(ratio>=0.42)steps=3;
-  else if(ratio>=0.22)steps=2;
-  go(current+(dy<0?steps:-steps));
+  go(current+(dy<0?1:-1));
 },{passive:true});
 addEventListener("touchcancel",()=>{touchStart=null},{passive:true});
 
+/* Coverflow das lojas: arraste horizontal livre + profundidade em tempo real. */
+const reduceStoreMotion=matchMedia("(prefers-reduced-motion: reduce)");
+let storeDepthRaf=0;
+let activeStore=0;
+let dragState=null;
+let suppressStoreClickUntil=0;
+
+function storeCenterAtScroll(card){
+  return card.offsetLeft+(card.offsetWidth/2);
+}
+function nearestStoreIndexForScroll(scrollLeft=track?.scrollLeft||0){
+  if(!track||!cards.length)return 0;
+  const center=scrollLeft+(track.clientWidth/2);
+  let best=0,bestDistance=Infinity;
+  cards.forEach((card,index)=>{
+    const distance=Math.abs(storeCenterAtScroll(card)-center);
+    if(distance<bestDistance){bestDistance=distance;best=index}
+  });
+  return best;
+}
+function scrollStoreTo(index,{smooth=true}={}){
+  if(!track||!cards.length)return;
+  const target=Math.max(0,Math.min(cards.length-1,index));
+  const card=cards[target];
+  const left=storeCenterAtScroll(card)-(track.clientWidth/2);
+  track.scrollTo({left,behavior:smooth&&!reduceStoreMotion.matches?"smooth":"auto"});
+}
+function renderPagination(index){
+  if(!pagination)return;
+  [...pagination.children].forEach((dot,i)=>{
+    const selected=i===index;
+    dot.classList.toggle("is-active",selected);
+    dot.setAttribute("aria-current",selected?"true":"false");
+  });
+}
+function setActiveStore(index){
+  if(!cards.length)return;
+  activeStore=Math.max(0,Math.min(cards.length-1,index));
+  cards.forEach((card,i)=>{
+    const selected=i===activeStore;
+    card.dataset.depth=selected?"center":"side";
+    card.setAttribute("aria-current",selected?"true":"false");
+  });
+  renderPagination(activeStore);
+}
+function updateStoreDepth(){
+  storeDepthRaf=0;
+  if(!track||!cards.length)return;
+  if(reduceStoreMotion.matches){
+    cards.forEach(card=>{
+      card.style.transform="none";
+      card.style.opacity="1";
+      card.style.zIndex="1";
+    });
+    setActiveStore(nearestStoreIndexForScroll());
+    return;
+  }
+
+  const trackRect=track.getBoundingClientRect();
+  const viewportCenter=trackRect.left+(trackRect.width/2);
+  const cardWidth=Math.max(1,cards[0]?.getBoundingClientRect().width||320);
+  const range=Math.max(1,cardWidth*.92);
+  let nearest=0,nearestDistance=Infinity;
+
+  cards.forEach((card,index)=>{
+    const cardCenter=trackRect.left+card.offsetLeft-track.scrollLeft+(card.offsetWidth/2);
+    const raw=(cardCenter-viewportCenter)/range;
+    const signed=Math.max(-1.7,Math.min(1.7,raw));
+    const distance=Math.min(1.35,Math.abs(signed));
+    const near=Math.min(1,distance);
+    const rotate=-signed*34;
+    const depth=-near*185;
+    const scale=1-(near*.085);
+    const shift=-signed*24;
+    const lift=near*6;
+    const opacity=1-(near*.22);
+
+    card.style.transformOrigin=signed<-.04?"100% 50%":signed>.04?"0% 50%":"50% 50%";
+    card.style.transform=`perspective(1200px) translate3d(${shift.toFixed(1)}px,${lift.toFixed(1)}px,${depth.toFixed(1)}px) rotateY(${rotate.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+    card.style.opacity=String(Math.max(.68,opacity));
+    card.style.zIndex=String(100-Math.round(near*45));
+
+    const absolute=Math.abs(cardCenter-viewportCenter);
+    if(absolute<nearestDistance){nearestDistance=absolute;nearest=index}
+  });
+
+  setActiveStore(nearest);
+}
+function scheduleStoreDepth(){
+  if(storeDepthRaf)return;
+  storeDepthRaf=requestAnimationFrame(updateStoreDepth);
+}
+
+function buildStorePagination(){
+  if(!pagination||!cards.length)return;
+  pagination.replaceChildren();
+  cards.forEach((card,index)=>{
+    const dot=document.createElement("button");
+    dot.type="button";
+    dot.className="stores-dot";
+    dot.setAttribute("aria-label",`Ir para ${card.querySelector("h3")?.textContent?.trim()||`loja ${index+1}`}`);
+    dot.addEventListener("click",()=>scrollStoreTo(index));
+    pagination.appendChild(dot);
+  });
+  renderPagination(activeStore);
+}
+
+function endStoreDrag(event,cancelled=false){
+  if(!dragState||event.pointerId!==dragState.id)return;
+  const state=dragState;
+  dragState=null;
+  track?.classList.remove("is-dragging");
+  try{track?.releasePointerCapture?.(event.pointerId)}catch{}
+  if(cancelled||state.axis!=="x")return;
+
+  suppressStoreClickUntil=performance.now()+260;
+  const projected=(track?.scrollLeft||0)+(state.velocity*210);
+  scrollStoreTo(nearestStoreIndexForScroll(projected));
+}
+
+track?.addEventListener("pointerdown",event=>{
+  if(event.pointerType==="touch")return;
+  if(!event.isPrimary||event.button!==0)return;
+  dragState={
+    id:event.pointerId,
+    startX:event.clientX,
+    startY:event.clientY,
+    startScroll:track.scrollLeft,
+    lastX:event.clientX,
+    lastTime:performance.now(),
+    velocity:0,
+    axis:null,
+    moved:false
+  };
+},{passive:true});
+
+track?.addEventListener("pointermove",event=>{
+  const state=dragState;
+  if(!state||event.pointerId!==state.id)return;
+  const dx=event.clientX-state.startX;
+  const dy=event.clientY-state.startY;
+  if(!state.axis&&Math.hypot(dx,dy)>6){
+    state.axis=Math.abs(dx)>Math.abs(dy)*1.06?"x":"y";
+    if(state.axis==="x"){
+      state.moved=true;
+      track.classList.add("is-dragging");
+      try{track.setPointerCapture(event.pointerId)}catch{}
+    }
+  }
+  if(state.axis!=="x")return;
+  event.preventDefault();
+
+  const now=performance.now();
+  const before=track.scrollLeft;
+  track.scrollLeft=state.startScroll-dx;
+  const dt=Math.max(8,now-state.lastTime);
+  const delta=track.scrollLeft-before;
+  const instant=delta/dt;
+  state.velocity=(state.velocity*.72)+(instant*.28);
+  state.lastX=event.clientX;
+  state.lastTime=now;
+  scheduleStoreDepth();
+},{passive:false});
+
+track?.addEventListener("pointerup",event=>endStoreDrag(event,false));
+track?.addEventListener("pointercancel",event=>endStoreDrag(event,true));
+track?.addEventListener("lostpointercapture",event=>{
+  if(dragState&&event.pointerId===dragState.id)endStoreDrag(event,false);
+});
+track?.addEventListener("dragstart",event=>event.preventDefault());
+track?.addEventListener("click",event=>{
+  if(performance.now()<suppressStoreClickUntil){
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
+  if(event.target.closest("a,button"))return;
+  const card=event.target.closest(".store-card");
+  if(!card)return;
+  const index=cards.indexOf(card);
+  if(index>=0&&index!==activeStore)scrollStoreTo(index);
+});
+track?.addEventListener("scroll",scheduleStoreDepth,{passive:true});
+addEventListener("resize",scheduleStoreDepth,{passive:true});
+reduceStoreMotion.addEventListener?.("change",scheduleStoreDepth);
+document.addEventListener("dc:stagechange",event=>{
+  if(event.detail?.stage?.kind==="stores")requestAnimationFrame(scheduleStoreDepth);
+});
+
+function moveStore(direction){
+  if(!track||!cards.length)return;
+  scrollStoreTo(nearestStoreIndexForScroll()+direction);
+}
+prevStore?.addEventListener("click",()=>moveStore(-1));
+nextStore?.addEventListener("click",()=>moveStore(1));
+
 addEventListener("keydown",event=>{
   const target=event.target;
-  if(target&&/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(target.tagName))return;
+  const interactive=target&&/^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(target.tagName);
+  if(current===1&&!interactive&&(event.key==="ArrowLeft"||event.key==="ArrowRight")){
+    event.preventDefault();moveStore(event.key==="ArrowRight"?1:-1);return;
+  }
+  if(interactive)return;
   let handled=true;
   if(event.key==="ArrowDown"||event.key==="PageDown"||event.key===" ")next();
   else if(event.key==="ArrowUp"||event.key==="PageUp")prev();
@@ -118,17 +311,14 @@ document.addEventListener("click",event=>{
   const href=link.getAttribute("href");
   let target=null;
   if(href==="#inicio")target=0;
-  else if(href==="#boas-vindas")target=1;
-  else if(href==="#sabores")target=2;
+  else if(href==="#lojas")target=1;
   if(target===null)return;
   event.preventDefault();
   go(target);
 });
 
-const hash=location.hash;
-if(hash==="#boas-vindas")current=1;
-else if(hash==="#sabores")current=2;
-else current=0;
-window.DC_STAGE_API={next,prev,go,get index(){return current},get stages(){return stages.slice()}};
+buildStorePagination();
+window.DC_STAGE_API={next,prev,go,get index(){return current},get stages(){return stages.slice()},moveStore,scrollStoreTo,get storeIndex(){return activeStore}};
 applyStage(current,{initial:true});
+scheduleStoreDepth();
 })();

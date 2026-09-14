@@ -1,97 +1,147 @@
-# Duas Cerejas - Site V1.8 Patch Candidato
+# Duas Cerejas - Site V1.9.4 Candidata
 
-Esta versao e um patch acumulativo da linha V1.x e **nao e considerada aprovada automaticamente**.
+Base desta rodada: **V1.9.3**, confirmada pelo usuário como perfeita antes destas alterações. A V1.9.4 continua candidata e só vira base oficial após novo teste e aprovação explícita.
+
+## Alterações desta rodada
+- Hero: intervalo reduzido para **2.000 ms** por fotografia.
+- Cardápio: navegação alterada de revista horizontal para **rolagem vertical tradicional**.
+- As 15 páginas agora aparecem em sequência, uma embaixo da outra, no desktop e no celular.
+- Mantido botão para baixar o PDF original.
+- Mantido contador discreto da página visível.
+- Páginas posteriores são carregadas progressivamente para preservar desempenho.
+- Lojas, fachadas e coverflow da V1.9.3 foram preservados.
 
 ## Como testar
-1. Extraia o ZIP inteiro.
-2. Abra `index.html` com Chrome, Edge, Firefox ou Safari. Nao e necessario instalar nada.
-3. No computador, use a roda do mouse/trackpad. Cada gesto deve **parar exatamente em uma etapa**: Hero -> boas-vindas -> Chocolate -> Brancos -> Morango...
-4. No celular, faça **swipe vertical**. Um swipe deve avançar ou voltar exatamente uma etapa, sem ficar no meio da transição.
-5. No Hero, confirme que as fotos agora trocam mais rápido e com transição mais curta.
-6. Vá até **Doces** e confira se o título aparece sincronizado com as três fotos, que entram rapidamente em sequência e terminam alinhadas na mesma altura.
-7. Continue para **Caseiros** e depois para o logo final; faça o caminho de volta para conferir a navegação reversa.
-8. Confirme que **Sem Lactose nao aparece** nesta versao e que o botão **Cardapio** continua funcionando normalmente.
+1. Abra `index.html` e confirme a troca do Hero aproximadamente a cada 2 segundos.
+2. Faça swipe vertical para Lojas e confirme que o coverflow e as fachadas continuam como na V1.9.3.
+3. Abra `cardapio.html` pelo botão Cardápio.
+4. Role para baixo e para cima: não deve existir mais navegação lateral/livro; as páginas devem seguir verticalmente.
+5. Confira o contador de página e o botão `Baixar PDF` no desktop.
+6. No celular, verifique que não existe rolagem horizontal do documento.
 
+## Regra de aprovação
+**V1.9.4 CANDIDATA.** Não considerar base oficial sem aprovação explícita do usuário.
 
-## Atualização V1.8 - navegação por etapas
+---
 
-A V1.8 muda somente o motor de navegação da home e o timing das cenas. Em vez de relacionar cada frame à quantidade exata de pixels rolados, a experiência agora trabalha com capítulos discretos. No desktop, wheel/trackpad avança uma etapa; no mobile, o gesto equivalente é swipe vertical.
+# Duas Cerejas - Site V1.9.3 Candidata
 
-Isso resolve o principal problema desta rodada: foto e texto não podem mais ficar em posições diferentes da mesma transição, pois cada categoria tem um único estado visual fechado. A categoria **Doces** usa o mesmo princípio; as três fotos entram em sequência curta, mas terminam com o mesmo topo, altura e base.
+Esta versao foi criada sobre a V1.9.2 que o usuario sinalizou como funcional para o coverflow das lojas. Mesmo assim, **ela continua candidata** e **nao se torna base oficial automaticamente**. A base so muda depois do teste e da aprovacao explicita do usuario.
 
-O Hero também foi acelerado para aproximadamente **2,6 segundos por foto** e deixa de executar autoplay quando o visitante já avançou para outra etapa.
+## Objetivo desta candidata
+Manter exatamente a navegacao que funcionou na V1.9.2 e acrescentar **a foto da fachada de cada loja** dentro dos cards do coverflow.
 
-## Correcao estrutural V1.4
-A V1.3 ainda possuia dois palcos: uma pre-visualizacao de Chocolate/Aerado na abertura e, em seguida, o palco real das categorias entrando fisicamente de baixo. Isso podia produzir a sensacao de uma foto solta e depois uma tela inteira subindo.
+## O que mudou nesta rodada
+- Mantido o fluxo enxuto da home: **Hero -> Lojas**.
+- Mantido o Hero com 6 fotos e intervalo de **2,6 s** por slide.
+- Mantido o coverflow navegavel aprovado: swipe lateral livre, card central dominante, cards vizinhos visiveis, dots e setas.
+- Adicionadas as **6 fotos reais das fachadas** das unidades.
+- As fotos foram incorporadas localmente em `assets/img/lojas/` e convertidas para **WebP**.
+- As imagens das fachadas usam `loading="lazy"`, preservando o objetivo de medir desempenho sem reativar peso desnecessario na home.
 
-Na V1.4 existe somente um `cinematic-stage` sticky, ocupando 100% do viewport. Dentro dele ficam, em camadas:
+## Como testar
+1. Extraia o ZIP inteiro e abra `index.html` no Chrome ou Edge.
+2. Confirme que o Hero continua leve e passando as fotos em no maximo cerca de 3 segundos por imagem.
+3. Faca swipe vertical/role para chegar em **Lojas**.
+4. Deslize horizontalmente entre as lojas e confirme que o carrossel continua fluido.
+5. Verifique se cada card agora mostra a **fachada correta** da unidade, junto do endereco, telefone, WhatsApp e botao de rotas.
+6. Teste voltar ao Hero e entrar novamente em Lojas.
+7. Abra `cardapio.html` e confirme que segue intacto.
 
-1. Hero;
-2. cortina preta;
-3. boas-vindas;
-4. palco dos sabores;
-5. logo final.
-
-A pagina continua rolando, mas o palco nao sobe. A rolagem altera apenas `opacity` e pequenos `transform` internos. Isso faz a experiencia parecer uma unica pagina/cena continua.
-
-## Timing e distancia de rolagem
-- Ponte Hero -> sabores: 54vh de deslocamento real.
-- Cada transicao de categoria: 38vh.
-- 12 categorias visiveis (Sem Lactose permanece oculta).
-- Percurso cinematografico total: aproximadamente 610vh, praticamente igual ao V1.3, mas sem a troca fisica de palco.
-
-O timing interno aprovado foi mantido:
-- 0%-16%: fotografia assenta, sem titulo;
-- 16%-32%: titulo entra;
-- 32%-56%: produto + titulo no apice;
-- 56%-68%: titulo sai;
-- 68%-94%: crossfade para a proxima fotografia.
-
-## Estrutura
-- `index.html`: pagina inicial e palco cinematografico unico.
-- `cardapio.html`: visualizador responsivo do cardapio.
-- `assets/css/site.css`: estilos e camadas da experiencia.
-- `assets/js/conteudo.js`: conteudo e parametros centrais de movimento (`openingVh` e `segmentVh`).
-- `assets/js/site.js`: ponte Hero -> boas-vindas -> sabores.
-- `assets/js/hero.js`: slider da abertura; agora pausa cedo quando o Hero deixa de ser relevante.
-- `assets/js/experiencia.js`: categorias e logo final no mesmo palco sticky.
-- `assets/js/cardapio.js`: revista responsiva.
-- `assets/img/`: imagens WebP otimizadas.
-- `assets/cardapio/`: PDF original e paginas leves.
-
-## Performance
-A V1.4 nao adiciona imagens, frameworks ou bibliotecas. Pelo contrario, remove uma superficie visual duplicada da ponte de abertura. O motor continua baseado em `requestAnimationFrame` sob demanda, `opacity`, `transform`, duas superficies de imagem reutilizadas para as categorias e preload apenas dos proximos itens.
-
-O Service Worker/cache persistente continua desativado durante os testes locais para nao mascarar patches com arquivos antigos.
+## Arquivos alterados nesta rodada
+- `index.html`
+- `assets/css/site.css`
+- `assets/img/lojas/*` (novo conjunto de fotos das fachadas)
+- `README.md`
+- `CHANGELOG.md`
+- `AUDITORIA_PERFORMANCE.md`
+- `VERSAO.txt`
 
 ## Regra de aprovacao
-Esta V1.4 e **CANDIDATA**. Ela so passa a ser base oficial quando o usuario testar e aprovar explicitamente.
+**V1.9.3 CANDIDATA.** Nao usar como nova base oficial ate o usuario testar e aprovar explicitamente.
+
+---
+
+# Duas Cerejas - Site V1.9.2 Candidata
+
+Esta versao foi criada **sobre o ZIP reenviado pelo usuario nesta rodada**. Ela e um patch de avaliacao e **nao se torna base oficial automaticamente**. A base so muda depois do teste e da aprovacao explicita do usuario.
+
+## Objetivo desta candidata
+A home foi simplificada temporariamente para medir desempenho sem perder o trabalho anterior. O fluxo ativo agora tem somente duas etapas verticais:
+
+1. Hero com as 6 fotografias atuais;
+2. Lojas, contatos e enderecos.
+
+As categorias e seus arquivos continuam preservados no projeto, mas ficam fora da execucao da home nesta versao.
+
+## Como testar
+1. Extraia o ZIP inteiro e abra `index.html` no Chrome ou Edge. Nao e necessario instalar nada.
+2. Deixe o Hero completar pelo menos dois ciclos, inclusive a volta da foto 6 para a 1. Cada foto deve permanecer no maximo aproximadamente 3 segundos na tela (intervalo de 2,6 s com crossfade curto).
+3. Faca um swipe vertical para cima no celular, ou role para baixo no desktop. A home deve ir **direto do Hero para Lojas**, sem boas-vindas e sem catalogos/categorias intermediarias.
+4. Na tela Lojas, deslize horizontalmente o carrossel. O card central deve ganhar protagonismo e os laterais devem produzir sensacao de profundidade, sem travar o swipe.
+5. Confira as 6 unidades e teste os botoes de telefone, WhatsApp e Rotas.
+6. Confirme o logo menor no rodape da tela de lojas.
+7. Faca swipe vertical para baixo/role para cima e confirme o retorno ao Hero. O autoplay do Hero deve retomar normalmente.
+8. Abra `cardapio.html` pelo botao Cardapio e confirme que ele continua funcionando.
+
+## Performance desta rodada
+- `index.html` nao carrega mais `assets/js/experiencia.js`.
+- A home nao carrega mais o arquivo completo `assets/js/conteudo.js`; usa `assets/js/home-conteudo.js`, contendo somente Hero e parametros necessarios.
+- Nenhuma imagem de categoria e requisitada pela home enquanto esta candidata estiver ativa.
+- A secao de lojas usa cards de texto e o logo local; nao adiciona fotografias externas nem downloads de loja.
+- O carrossel usa scroll horizontal nativo, `scroll-snap`, `transform` e `opacity`; nao usa Canvas, biblioteca de animacao nem calculo pesado por frame.
+- O primeiro Hero continua com preload; as demais imagens seguem carregamento progressivo pelo slider existente.
+- `prefers-reduced-motion` continua respeitado.
+
+## Arquivos alterados
+- `index.html`
+- `assets/css/site.css`
+- `assets/js/site.js`
+- `assets/js/home-conteudo.js` (novo)
+- `README.md`
+- `CHANGELOG.md`
+- `AUDITORIA_PERFORMANCE.md`
+- `VERSAO.txt`
+
+## O que foi preservado
+Os arquivos das categorias, a experiencia anterior, as imagens e o cardapio **nao foram apagados**. Esta rodada apenas os retira do caminho ativo do `index.html`, permitindo comparar fluidez e consumo sem perder o que ja foi desenvolvido.
+
+## Regra de aprovacao
+**V1.9.2 CANDIDATA.** Nao usar como nova base oficial ate o usuario testar e aprovar explicitamente.
+
+## Patch V1.9.1 - Faux 3D das lojas
+A V1.9.0 usava uma animacao de profundidade condicionada ao suporte de `animation-timeline:view(inline)`. Em navegadores onde essa condicao nao era atendida, o carrossel continuava funcional, mas os cards permaneciam planos.
+
+A V1.9.1 remove essa dependencia: o arraste continua sendo scroll horizontal nativo com snap e a profundidade visual e atualizada de forma leve apenas enquanto o carrossel se move. O card central deve ficar frontal e os vizinhos devem inclinar/recuar para os lados.
+
+### Teste principal
+1. Abra `index.html` e avance do Hero para Lojas.
+2. Arraste as lojas horizontalmente com o mouse/trackpad ou com o dedo.
+3. Verifique se o card no centro fica frontal e os cards laterais aparecem inclinados/recuados, mudando continuamente enquanto voce arrasta.
+4. Confirme que o arraste continua fluido e que os links WhatsApp/Rotas permanecem clicaveis.
+5. Esta versao continua **CANDIDATA** ate aprovacao explicita.
 
 
-## Atualização V1.5 candidata
+## Patch V1.9.2 - Coverflow navegavel das lojas
+A V1.9.1 corrigiu a profundidade, mas ainda tratava o carrossel mais como efeito visual do que como controle de navegacao. A V1.9.2 troca essa abordagem por um coverflow utilizavel:
 
-Esta versão troca somente as imagens das categorias **Chocolate**, **Brancos**, **Meio Amargo** e **Novidades**, preservando o Hero e toda a estrutura da home.
+- arraste horizontal livre durante o gesto;
+- `scroll-snap` em modo `proximity`, sem prender o dedo a cada card;
+- card central praticamente frontal e em primeiro plano;
+- cards vizinhos continuam visiveis, inclinados e recuados para indicar que ha mais conteudo;
+- no celular o swipe horizontal usa a rolagem/inercia nativa do navegador;
+- no desktop, mouse e caneta podem agarrar e arrastar a faixa;
+- ao soltar mouse/caneta, o card mais proximo centraliza suavemente;
+- toque/clique em um card lateral centraliza aquela loja;
+- pontos de navegacao mostram a posicao entre as 6 unidades e tambem podem ser clicados;
+- setas e teclado continuam funcionando no desktop.
 
+### QA interna desta candidata
+A interacao foi exercitada em Chromium headless com o HTML/CSS/JS reais injetados na pagina de teste:
+- desktop 1440 px: `clientWidth=1440`, `scrollWidth=3632`; arraste real de mouse moveu `scrollLeft` de 0 para 877 e o card ativo de 1 para 3;
+- mobile 390 px: `clientWidth=390`, `scrollWidth=1961`; gesto de toque lateral moveu `scrollLeft` de 0 para 282 e o card ativo de 1 para 2;
+- swipe vertical no mobile avançou Hero -> Lojas; swipe horizontal manteve a etapa Lojas; swipe vertical inverso retornou Lojas -> Hero;
+- Hero confirmado em 2.600 ms por slide;
+- nenhum erro JavaScript foi registrado nos testes de interacao.
 
-## Atualização V1.7 candidata
-
-Esta iteração **descarta a chuva de doces da tentativa anterior** e volta para uma solução mais elegante e fiel às fotos reais.
-
-### O que muda
-- Na categoria **Doces**, o palco entra em **preto** e surgem **3 fotos reais** alinhadas lado a lado.
-- As três aparecem **uma por uma**, dentro do mesmo tempo de scroll já existente.
-- A animação foi mantida leve: apenas `opacity` e `transform`, sem bibliotecas e sem partículas soltas.
-- As imagens foram convertidas para WebP e enquadradas em cards verticais para melhorar a leitura visual.
-
-### O que validar no teste
-1. Role até a categoria **Doces**.
-2. Confirme que ela entra com fundo preto, sem chuva e sem visual artificial.
-3. Verifique se as 3 fotos aparecem em sequência, alinhadas, ainda no mesmo trecho de scroll.
-4. Continue rolando e confirme que a próxima categoria assume normalmente.
-5. Teste também em tela menor para conferir responsividade.
-
-## Patch V1.8.1 - retorno do Hero
-Foi corrigida a continuidade do carrossel quando a ultima fotografia volta para a primeira. O teste principal desta versao e deixar o Hero completar pelo menos dois ciclos inteiros sem interagir e conferir se a sequencia 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 1 permanece suave, sem quadro preto, salto, pausa anormal ou texto fora da fotografia.
-
-### Patch V1.8.4 candidata
-Mantém a V1.8.1 como base aprovada e refaz o swipe multietapas com sincronismo bidirecional. O retorno a partir do final não depende mais de uma troca de camadas feita por timer: imagem e texto da categoria de destino são confirmados juntos.
+A candidata continua **nao aprovada** ate o teste local do usuario.

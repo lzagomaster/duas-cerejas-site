@@ -1,70 +1,88 @@
-# Auditoria de performance - V1.4 Candidata
+# Auditoria de Performance - V1.9.4 Candidata
 
-## Mudanca principal
-A abertura e a historia deixaram de ser duas secoes sticky independentes. Toda a home cinematografica usa agora um unico `cinematic-stage` sticky do Hero ao logo final.
+## Hero
+- Intervalo reduzido para 2.000 ms.
+- Motor do Hero não foi refeito; apenas o tempo de permanência foi alterado, reduzindo risco de regressão.
 
-Isso remove:
-- a pre-visualizacao duplicada de Chocolate/Aerado;
-- a entrada fisica de um segundo palco de baixo para cima;
-- a necessidade de sobrepor duas secoes de 100vh por margem negativa.
+## Cardápio
+- Removida lógica de revista/páginas duplas e gestos horizontais.
+- Navegação passa a usar o scroll vertical nativo do navegador.
+- Primeira página recebe preload/fetchpriority alto.
+- Demais páginas usam lazy loading.
+- `conteudo.js` e `site.js` não são mais carregados em `cardapio.html`.
 
-## Movimento
-A troca Hero -> boas-vindas -> Chocolate altera somente opacidade e pequenos transforms internos. A coordenada vertical do palco permanece fixa em `top: 0` enquanto a secao cinematografica esta ativa.
+## Preservado
+- Coverflow das lojas da V1.9.3.
+- Fotos de fachada locais em WebP.
+- Home com somente Hero -> Lojas.
 
-Parametros centralizados em `assets/js/conteudo.js`:
-- `openingVh`: 54;
-- `segmentVh`: 38.
+---
 
-Com 12 categorias visiveis, a secao mede aproximadamente 610vh: 100vh do viewport sticky + 54vh da ponte + 12 x 38vh de progresso dos sabores.
+# Auditoria de Performance - V1.9.3 Candidata
 
-## Carregamento
-- Nenhuma imagem ou biblioteca nova foi adicionada.
-- Fotografias continuam em WebP responsivo com `srcset`.
-- Primeiro Hero continua com preload e `fetchpriority=high`.
-- Slider carrega progressivamente o proximo Hero.
-- Categorias continuam usando apenas duas superficies de imagem reutilizadas.
-- A imagem duas categorias a frente e preparada sob demanda.
-- Hero pausa o autoplay apos o usuario iniciar a saida da abertura.
-- Sem Lactose segue oculta e nao gera etapa de rolagem.
+## Escopo desta rodada
+- Mantida a home curta com 2 etapas: Hero -> Lojas.
+- Acrescentadas somente as fotografias de fachada das 6 unidades, sem reativar catalogos/categorias antigos.
 
-## Timing preservado
-- 0%-16%: produto assentando;
-- 16%-32%: titulo entra;
-- 32%-56%: produto e titulo no apice;
-- 56%-68%: titulo desaparece;
-- 68%-94%: crossfade de fotografia.
+## Medidas adotadas
+- Fotos de fachada incorporadas localmente em WebP.
+- `loading="lazy"` aplicado nas imagens das lojas.
+- Nenhuma biblioteca externa adicionada.
+- Carrossel continua baseado em scroll nativo + `transform`/`opacity`.
+
+## Risco observado
+- Esta rodada adiciona 6 imagens a secao de lojas. Mesmo otimizadas, pode haver pequeno aumento no uso de rede ao entrar nessa etapa.
+- Como contrapartida, as fachadas so sao carregadas sob demanda e o Hero continua sendo a primeira prioridade visual.
+
+---
+
+# Auditoria de performance - V1.9.2 Candidata
+
+## Escopo
+Esta candidata e deliberadamente enxuta para comparar desempenho. Ela usa como fonte o ZIP reenviado pelo usuario nesta rodada e nao elimina o trabalho anterior.
+
+## Caminho ativo da home
+O `index.html` executa somente:
+- Hero;
+- tela de Lojas.
+
+Categorias, galeria Doces e final antigo continuam no repositorio, mas nao fazem parte do DOM nem da carga inicial desta home.
+
+## Reducao de trabalho
+- `experiencia.js` deixou de ser carregado pelo `index.html`.
+- `conteudo.js` completo deixou de ser carregado pela home; `home-conteudo.js` contem somente os 6 slides do Hero e quatro parametros de movimento.
+- JavaScript referenciado diretamente pela home caiu de aproximadamente 24,3 KB para 11,8 KB (arquivos brutos, antes de compressao HTTP).
+- Nenhuma fotografia de categoria e solicitada pela home.
+- Lojas nao adicionam fotografias externas; os cards sao HTML/CSS e o logo final ja e local.
+- A navegacao vertical agora possui apenas dois estados, sem calculo continuo por scroll.
+
+## Hero
+- Intervalo configurado: 2.600 ms.
+- Crossfade existente: aproximadamente 340 ms.
+- Permanencia nominal maxima por foto: aproximadamente 2,94 s antes da proxima imagem dominar.
+- Autoplay continua pausando quando o Hero sai da tela e retomando ao retornar.
+
+## Carrossel de lojas
+A V1.9.2 usa um coverflow leve e navegavel:
+- `overflow-x: auto` com viewport realmente limitado ao tamanho da tela;
+- `scroll-snap-type: x proximity`, sem snap obrigatorio durante o gesto;
+- swipe touch usa scroll e inercia nativos;
+- mouse/caneta usam drag por Pointer Events;
+- profundidade e atualizada somente enquanto a faixa se move;
+- apenas 6 cards sao avaliados por `requestAnimationFrame`;
+- atualizacao visual restrita a `transform`, `opacity` e `z-index`;
+- sem Canvas, filtros, WebGL ou bibliotecas externas;
+- fora do movimento nao existe loop permanente de animacao do carrossel.
 
 ## QA executada
-- `node --check` aprovado em `site.js`, `hero.js`, `experiencia.js` e `conteudo.js`.
-- `index.html` e `cardapio.html` passaram pelo parser HTML.
-- Nenhuma referencia local ausente em HTML/configuracao.
-- Confirmadas 12 categorias visiveis e Sem Lactose oculta.
-- Confirmada remocao das estruturas antigas `opening-next-media`, segundo `story-stage` e secoes empilhadas `opening/story`.
-- O Chromium headless deste ambiente continua interceptando tanto `file://` quanto `127.0.0.1`, exibindo pagina interna do navegador; portanto a captura visual automatizada nao e considerada valida.
+- `node --check` em `assets/js/site.js`, `assets/js/hero.js` e `assets/js/home-conteudo.js`.
+- Hero confirmado com `heroIntervalMs = 2600`.
+- Desktop 1440 px: faixa com `clientWidth=1440` e `scrollWidth=3632`; drag de mouse levou `scrollLeft` de 0 para 877 e card ativo 1 -> 3.
+- Mobile 390 px: faixa com `clientWidth=390` e `scrollWidth=1961`; gesto touch levou `scrollLeft` de 0 para 282 e card ativo 1 -> 2.
+- Teste de eixos no mobile: swipe vertical Hero -> Lojas; swipe horizontal manteve Lojas; swipe vertical inverso Lojas -> Hero.
+- Paginacao criada com 6 pontos e sincronizada com o card ativo.
+- Nenhum erro JavaScript registrado nos testes de interacao.
+- Como a politica do Chromium deste ambiente bloqueia navegacao direta para `localhost` e `file://`, o QA interativo foi executado injetando o mesmo HTML/CSS/JS da candidata em uma pagina Chromium isolada. As referencias de arquivos locais sao conferidas separadamente.
 
-## Teste final necessario
-O teste visual final deve ser feito localmente no PC/celular do usuario. Esta candidata nao se torna base oficial sem aprovacao explicita.
-
-
-## Nota V1.5
-
-A V1.5 substitui apenas quatro imagens de categorias por novos derivados WebP 640/1440. Não houve adição de bibliotecas ou aumento estrutural relevante do projeto.
-
-
-## V1.7 - trecho Doces
-- Removida a solução de múltiplos doces em queda.
-- Substituída por 3 fotografias reais em cards otimizados (`640w` + `1080w`).
-- Efeito baseado somente em `opacity` e `transform`, mantendo custo de renderização baixo.
-- Fundo preto ajuda a mascarar a troca de capítulo e reduz ruído visual.
-
-## V1.8 - motor por etapas / swipe
-- Removido o vínculo contínuo entre `scrollY` e cada frame da experiência.
-- A home não mantém mais `requestAnimationFrame` ativo a cada evento de scroll; somente uma mudança de etapa dispara transições.
-- Desktop: wheel/trackpad com acumulador e trava de gesto; a inércia não pode atravessar múltiplas categorias.
-- Mobile: swipe vertical por distância mínima, sem posição intermediária entre capítulos.
-- Hero: autoplay de 4,3 s -> 2,6 s; crossfade e zoom encurtados; autoplay pausado fora do Hero.
-- Doces: 3 cards com dimensões iguais e deslocamento final zero; entrada sequencial curta baseada apenas em `opacity` e `transform`.
-- Nenhuma biblioteca, Canvas, filtro pesado ou processamento por frame foi adicionado.
-- QA de lógica executada com o JavaScript real da versão: burst de wheel avançou uma única etapa, sequência completa chegou a Doces/Caseiros/final e navegação reversa funcionou.
-- QA de layout do bloco Doces executada em 1440x900 e 390x844: os três cards terminaram com topo e base idênticos nos dois tamanhos.
-- A versão continua candidata e exige teste local do usuário antes de qualquer promoção de base.
+## Status
+**CANDIDATA.** Nao se torna base oficial sem teste e aprovacao explicita do usuario.

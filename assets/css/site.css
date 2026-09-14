@@ -63,3 +63,280 @@ body.home-page{touch-action:pan-x pinch-zoom}
 body.home-page .hero-image{transform:scale(1.018);transition-duration:.30s,2.25s}
 body.home-page .hero-image.is-visible{transform:scale(1)}
 body.home-page .story-sweet-card img{filter:none}
+
+/* V1.9 candidata - home enxuta em 2 etapas: Hero -> Lojas */
+body.home-page .cinematic-lite{height:100vh!important;height:100svh!important;background:#050505}
+body.home-page .cinematic-lite .cinematic-stage{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden}
+body.home-page .hero-layer{opacity:0;pointer-events:none;transition:opacity .34s ease;will-change:opacity}
+body.home-page .hero-layer.is-active{opacity:1;pointer-events:auto}
+
+.stores-layer{position:absolute;inset:0;z-index:6;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(10px,1.4vh,18px);padding:clamp(92px,12vh,126px) 0 clamp(14px,2.2vh,26px);background:radial-gradient(circle at 50% 35%,rgba(133,28,48,.14),transparent 36%),#050505;opacity:0;transform:translate3d(0,22px,0) scale(.992);pointer-events:none;transition:opacity .34s ease,transform .46s cubic-bezier(.2,.72,.2,1);will-change:opacity,transform;overflow:hidden}
+.stores-layer.is-active{opacity:1;transform:translate3d(0,0,0) scale(1);pointer-events:auto}
+.stores-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;padding:0 clamp(22px,6vw,92px)}
+.stores-kicker{margin:0 0 10px;font-size:10px;font-weight:720;letter-spacing:.19em;text-transform:uppercase;color:rgba(255,255,255,.52)}
+.stores-heading h2{margin:0;font-size:clamp(42px,6.4vw,92px);font-weight:560;line-height:.92;letter-spacing:-.052em;color:#fff}
+.stores-note{max-width:330px;margin:0 0 5px;font-size:clamp(12px,1.08vw,16px);line-height:1.5;color:rgba(255,255,255,.52)}
+
+.stores-carousel{position:relative;min-height:0;display:flex;align-items:center;isolation:isolate}
+.stores-track-wrapper{width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%)}
+.stores-track{--store-card-width:clamp(292px,31vw,455px);display:flex;align-items:center;gap:clamp(16px,2.15vw,32px);width:100%;height:100%;margin:0;padding:18px max(24px,calc(50vw - (var(--store-card-width) / 2))) 22px;overflow-x:auto;overflow-y:hidden;list-style:none;scroll-snap-type:x mandatory;scroll-padding-inline:50%;overscroll-behavior-inline:contain;scrollbar-width:none;-ms-overflow-style:none;perspective:1200px;touch-action:pan-x;outline:none}
+.stores-track::-webkit-scrollbar{display:none}
+.stores-track:focus-visible{outline:1px solid rgba(255,255,255,.38);outline-offset:-4px}
+.store-card{position:relative;flex:0 0 var(--store-card-width);min-width:0;height:clamp(340px,47vh,455px);scroll-snap-align:center;scroll-snap-stop:always;border:1px solid rgba(255,255,255,.12);border-radius:clamp(24px,2.2vw,34px);background:linear-gradient(145deg,rgba(28,28,30,.98),rgba(11,11,12,.995) 58%,rgba(4,4,4,.995));box-shadow:0 28px 70px rgba(0,0,0,.38),0 1px 0 rgba(255,255,255,.06) inset;overflow:hidden;transform-origin:center center;backface-visibility:hidden;contain:layout paint}
+.store-card:before{content:attr(data-store);position:absolute;right:-.02em;top:-.19em;font-size:clamp(112px,12vw,176px);font-weight:760;line-height:1;letter-spacing:-.08em;color:rgba(255,255,255,.035);pointer-events:none}
+.store-card:after{content:"";position:absolute;inset:auto -22% -42% auto;width:72%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(153,34,59,.28),rgba(153,34,59,.07) 38%,transparent 70%);pointer-events:none}
+.store-card-inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;padding:clamp(24px,2.35vw,34px)}
+.store-city{margin:0 0 12px;font-size:9px;font-weight:750;letter-spacing:.17em;text-transform:uppercase;color:#d87a8d}
+.store-card h3{margin:0;font-size:clamp(31px,3.1vw,48px);font-weight:580;line-height:.96;letter-spacing:-.045em;color:#fff}
+.store-card address{margin:18px 0 0;font-style:normal;font-size:clamp(12px,1vw,15px);line-height:1.52;color:rgba(255,255,255,.62)}
+.store-contact{display:grid;grid-template-columns:minmax(72px,.72fr) 1.28fr;column-gap:14px;row-gap:7px;margin-top:clamp(18px,2.1vh,26px);font-size:clamp(11px,.9vw,13px)}
+.store-contact span{color:rgba(255,255,255,.38)}
+.store-contact a{color:rgba(255,255,255,.85);font-variant-numeric:tabular-nums}
+.store-contact a:hover,.store-contact a:focus-visible{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.store-hours{margin:auto 0 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);font-size:10px;line-height:1.45;letter-spacing:.015em;color:rgba(255,255,255,.48)}
+.store-hours span{color:rgba(255,255,255,.75)}
+.store-hours strong{padding:0 6px;color:rgba(255,255,255,.2)}
+.store-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+.store-link{min-height:42px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:0 13px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.035);font-size:9px;font-weight:730;letter-spacing:.095em;text-transform:uppercase;color:#fff;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.store-link:hover,.store-link:focus-visible{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.34);transform:translateY(-1px)}
+.store-link-primary{background:#fff;color:#080808;border-color:#fff}
+.store-link-primary:hover,.store-link-primary:focus-visible{background:#ececec;color:#080808;border-color:#ececec}
+
+.stores-arrow{position:absolute;z-index:8;top:50%;width:48px;height:48px;margin-top:-24px;border:1px solid rgba(255,255,255,.22);border-radius:50%;background:rgba(5,5,5,.78);color:#fff;font-size:29px;line-height:1;cursor:pointer;transition:background .18s ease,border-color .18s ease,transform .18s ease}
+.stores-arrow:hover,.stores-arrow:focus-visible{background:#fff;color:#050505;border-color:#fff;transform:scale(1.04)}
+.stores-arrow-prev{left:clamp(12px,2.2vw,34px)}
+.stores-arrow-next{right:clamp(12px,2.2vw,34px)}
+
+.stores-finale{display:flex;align-items:center;justify-content:center;gap:13px;min-height:48px;padding:0 20px;text-align:center;color:rgba(255,255,255,.38)}
+.stores-finale img{display:block;width:clamp(58px,5.6vw,86px);height:auto;object-fit:contain;opacity:.82}
+.stores-finale p{margin:0;font-size:9px;letter-spacing:.14em;text-transform:uppercase}
+
+@media(max-width:760px){
+  body.home-page .cinematic-lite .cinematic-stage{min-height:520px}
+  .stores-layer{gap:8px;padding:78px 0 max(10px,env(safe-area-inset-bottom))}
+  .stores-heading{display:block;padding:0 20px}
+  .stores-kicker{margin-bottom:7px;font-size:8px}
+  .stores-heading h2{font-size:clamp(38px,12vw,56px)}
+  .stores-note{margin-top:8px;max-width:none;font-size:11px}
+  .stores-carousel{align-items:center}
+  .stores-track-wrapper{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 3%,#000 97%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 3%,#000 97%,transparent 100%)}
+  .stores-track{--store-card-width:min(82vw,350px);gap:13px;padding-top:10px;padding-bottom:12px;padding-inline:max(18px,calc(50vw - (var(--store-card-width) / 2)))}
+  .store-card{height:min(50vh,405px);min-height:326px;border-radius:24px}
+  .store-card-inner{padding:22px}
+  .store-card h3{font-size:clamp(30px,9vw,40px)}
+  .store-card address{margin-top:13px;font-size:11px}
+  .store-contact{margin-top:15px;row-gap:5px;font-size:10px}
+  .store-hours{padding-top:12px;font-size:9px}
+  .store-actions{margin-top:10px}
+  .store-link{min-height:38px;padding-inline:10px;font-size:8px}
+  .stores-arrow{display:none}
+  .stores-finale{min-height:40px;gap:10px}
+  .stores-finale img{width:56px}
+  .stores-finale p{font-size:8px}
+}
+
+@media(max-width:420px){
+  .stores-layer{padding-top:74px}
+  .stores-heading h2{font-size:40px}
+  .stores-note{font-size:10px}
+  .stores-track{--store-card-width:min(84vw,334px)}
+  .store-card{height:min(49vh,388px);min-height:316px}
+  .store-card-inner{padding:20px}
+  .store-city{margin-bottom:9px;font-size:8px}
+  .store-card h3{font-size:31px}
+  .store-card address{font-size:10px;line-height:1.45}
+  .store-contact{grid-template-columns:68px 1fr;margin-top:13px;font-size:9.5px}
+}
+
+@media(orientation:landscape) and (max-height:560px){
+  .stores-layer{grid-template-columns:minmax(190px,26vw) minmax(0,1fr);grid-template-rows:1fr auto;gap:0;padding:64px 0 8px}
+  .stores-heading{display:flex;align-items:flex-start;justify-content:center;flex-direction:column;padding:0 16px 0 28px}
+  .stores-heading h2{font-size:8vh}
+  .stores-note{margin-top:10px;font-size:9px}
+  .stores-carousel{grid-column:2;grid-row:1}
+  .stores-track{--store-card-width:min(44vw,360px);padding-top:8px;padding-bottom:8px}
+  .store-card{height:70vh;min-height:250px}
+  .store-card-inner{padding:17px 20px}
+  .store-card h3{font-size:6.8vh}
+  .store-card address{margin-top:9px;font-size:9px}
+  .store-contact{margin-top:10px;font-size:8.5px;row-gap:3px}
+  .store-hours{padding-top:8px;font-size:8px}
+  .store-actions{margin-top:8px}
+  .store-link{min-height:32px;font-size:7px}
+  .stores-finale{grid-column:1 / -1;grid-row:2;min-height:32px}
+  .stores-finale img{width:46px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body.home-page .hero-layer,.stores-layer,.store-link,.stores-arrow{transition:none;will-change:auto}
+  .store-card{animation:none!important;opacity:1!important;transform:none!important}
+  .stores-track{scroll-behavior:auto}
+}
+
+/* V1.9.2 candidata - coverflow navegavel das lojas.
+   O usuario controla o movimento: arraste horizontal livre, profundidade em tempo real,
+   snap apenas de proximidade e centralizacao suave ao soltar. */
+.stores-layer{grid-template-columns:minmax(0,1fr)}
+.stores-carousel{min-width:0;width:100%;overflow:hidden;padding-bottom:28px}
+.stores-track-wrapper{
+  min-width:0;
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);
+}
+.stores-track{
+  --store-card-width:clamp(300px,29vw,430px);
+  gap:clamp(12px,1.45vw,22px);
+  perspective:1200px;
+  transform-style:preserve-3d;
+  scroll-snap-type:x proximity;
+  scroll-behavior:auto;
+  touch-action:pan-x pan-y pinch-zoom;
+  cursor:grab;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.stores-track.is-dragging{cursor:grabbing;scroll-snap-type:none}
+.store-card{
+  animation:none!important;
+  transform-style:preserve-3d;
+  will-change:transform,opacity;
+  transition:box-shadow .2s ease,border-color .2s ease;
+}
+.store-card[data-depth="center"]{
+  border-color:rgba(255,255,255,.22);
+  box-shadow:0 34px 90px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.1) inset;
+}
+.store-card[data-depth="side"]{box-shadow:0 20px 52px rgba(0,0,0,.34)}
+.stores-pagination{
+  position:absolute;
+  z-index:7;
+  left:50%;
+  bottom:3px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transform:translateX(-50%);
+}
+.stores-dot{
+  width:7px;
+  height:7px;
+  padding:0;
+  border:0;
+  border-radius:999px;
+  background:rgba(255,255,255,.28);
+  cursor:pointer;
+  transition:width .2s ease,background .2s ease,transform .2s ease;
+}
+.stores-dot:hover,.stores-dot:focus-visible{background:rgba(255,255,255,.62);transform:scale(1.18)}
+.stores-dot.is-active{width:25px;background:#fff}
+.stores-carousel:before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:7% 10% 10%;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(151,34,59,.095) 0%,rgba(151,34,59,.03) 46%,transparent 73%);
+  pointer-events:none;
+}
+.stores-track-wrapper{position:relative;z-index:1;width:100%}
+.stores-arrow{z-index:8}
+
+@media(max-width:760px){
+  .stores-heading{padding-inline:18px}
+  .stores-note{max-width:260px}
+  .stores-carousel{padding-bottom:24px}
+  .stores-track-wrapper{
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 2%,#000 98%,transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 2%,#000 98%,transparent 100%);
+  }
+  .stores-track{
+    --store-card-width:min(76vw,326px);
+    gap:10px;
+    padding-inline:max(12px,calc(50vw - (var(--store-card-width) / 2)));
+  }
+  .store-card{will-change:transform,opacity}
+  .stores-pagination{bottom:1px;gap:7px}
+  .stores-dot{width:6px;height:6px}
+  .stores-dot.is-active{width:22px}
+}
+
+@media(max-width:420px){
+  .stores-track{--store-card-width:min(78vw,314px)}
+}
+
+@media(orientation:landscape) and (max-height:560px){
+  .stores-carousel{padding-bottom:18px}
+  .stores-track{--store-card-width:min(41vw,340px)}
+  .stores-pagination{bottom:0}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .store-card{transform:none!important;opacity:1!important;will-change:auto}
+  .stores-track{scroll-behavior:auto;scroll-snap-type:x proximity}
+  .stores-dot{transition:none}
+}
+
+
+/* V1.9.3 candidata - fachadas nas lojas sem perder o coverflow aprovado. */
+.store-card-inner{padding:0}
+.store-media{
+  position:relative;
+  flex:0 0 auto;
+  height:clamp(140px,18vw,180px);
+  overflow:hidden;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+}
+.store-media::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:42%;
+  background:linear-gradient(180deg,transparent,rgba(8,8,8,.42));
+  pointer-events:none;
+}
+.store-media img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  transform:scale(1.01);
+}
+.store-card-body{
+  position:relative;
+  z-index:2;
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+  padding:clamp(18px,2vw,24px) clamp(18px,2vw,24px) clamp(20px,2.2vw,26px);
+}
+.store-city{margin:0 0 10px}
+.store-card address{margin:14px 0 0}
+.store-contact{margin-top:16px}
+.store-hours{padding-top:14px}
+.store-actions{margin-top:12px}
+
+@media(max-width:760px){
+  .store-media{height:124px}
+  .store-card-body{padding:18px 18px 20px}
+  .store-card address{margin-top:12px}
+  .store-contact{margin-top:14px}
+}
+
+@media(max-width:420px){
+  .store-media{height:116px}
+  .store-card-body{padding:17px 17px 18px}
+}
+
+@media(orientation:landscape) and (max-height:560px){
+  .store-media{height:28vh;min-height:96px;max-height:132px}
+  .store-card-body{padding:14px 16px 16px}
+  .store-card address{margin-top:8px}
+  .store-contact{margin-top:9px}
+  .store-hours{padding-top:8px}
+  .store-actions{margin-top:8px}
+}

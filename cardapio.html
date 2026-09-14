@@ -5,15 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#050505">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Cardápio Duas Cerejas em formato leve e responsivo.">
+  <meta name="description" content="Cardápio Duas Cerejas em visualização vertical, leve e responsiva.">
   <title>Cardápio - Duas Cerejas</title>
   <link rel="stylesheet" href="assets/css/site.css">
   <link rel="stylesheet" href="assets/css/cardapio.css">
   <link rel="icon" type="image/webp" href="assets/img/logo/duas-cerejas-180.webp">
-  <link rel="preload" as="image" href="assets/cardapio/paginas/pagina-01-900.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/cardapio/paginas/pagina-01-900.webp" imagesrcset="assets/cardapio/paginas/pagina-01-520.webp 520w, assets/cardapio/paginas/pagina-01-900.webp 900w, assets/cardapio/paginas/pagina-01-1400.webp 1400w" imagesizes="(max-width: 899px) 94vw, 900px" fetchpriority="high">
   <script>document.documentElement.className='js';</script>
 </head>
 <body class="cardapio-page">
+  <a class="skip-link" href="#cardapio-documento">Ir para o cardápio</a>
+
   <header class="site-header card-header">
     <a class="brand" href="index.html" aria-label="Duas Cerejas - início">
       <img src="assets/img/logo/duas-cerejas-420.webp" width="420" height="209" alt="Duas Cerejas">
@@ -28,30 +30,139 @@
     <div class="card-intro">
       <p class="eyebrow">Duas Cerejas</p>
       <h1>Cardápio</h1>
-      <p>Folheie com as setas ou deslize para o lado. No computador, as páginas aparecem como uma revista; no celular, uma página por vez.</p>
+      <p>Role para cima ou para baixo para navegar pelas páginas.</p>
     </div>
 
-    <section class="book-shell" aria-label="Visualizador do cardápio">
-      <div class="book-toolbar">
-        <button id="book-prev" type="button" aria-label="Página anterior">‹</button>
-        <span id="book-counter">1 / 15</span>
-        <button id="book-next" type="button" aria-label="Próxima página">›</button>
-        <span class="toolbar-sep" aria-hidden="true"></span>
-        <button id="zoom-out" type="button" aria-label="Diminuir">−</button>
-        <button id="zoom-in" type="button" aria-label="Ampliar">+</button>
+    <section class="pdf-shell" id="cardapio-documento" aria-label="Cardápio Duas Cerejas em páginas verticais">
+      <div class="pdf-toolbar" aria-live="polite">
+        <span id="pdf-counter">Página 1 de 15</span>
+        <a href="#cardapio-documento" class="pdf-top-link">Topo ↑</a>
       </div>
-      <div class="book-viewport" id="book-viewport">
-        <div class="book" id="book">
-          <figure class="page-slot" id="page-left"><img alt="Página do cardápio" draggable="false" decoding="async"></figure>
-          <figure class="page-slot" id="page-right"><img alt="Página do cardápio" draggable="false" decoding="async"></figure>
-        </div>
+      <div class="pdf-pages" id="pdf-pages">
+        <figure class="pdf-page" data-page="1" aria-label="Página 1 de 15">
+          <img src="assets/cardapio/paginas/pagina-01-900.webp"
+               srcset="assets/cardapio/paginas/pagina-01-520.webp 520w, assets/cardapio/paginas/pagina-01-900.webp 900w, assets/cardapio/paginas/pagina-01-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 1"
+               loading="eager" decoding="async" fetchpriority="high">
+        </figure>
+        <figure class="pdf-page" data-page="2" aria-label="Página 2 de 15">
+          <img src="assets/cardapio/paginas/pagina-02-900.webp"
+               srcset="assets/cardapio/paginas/pagina-02-520.webp 520w, assets/cardapio/paginas/pagina-02-900.webp 900w, assets/cardapio/paginas/pagina-02-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 2"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="3" aria-label="Página 3 de 15">
+          <img src="assets/cardapio/paginas/pagina-03-900.webp"
+               srcset="assets/cardapio/paginas/pagina-03-520.webp 520w, assets/cardapio/paginas/pagina-03-900.webp 900w, assets/cardapio/paginas/pagina-03-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 3"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="4" aria-label="Página 4 de 15">
+          <img src="assets/cardapio/paginas/pagina-04-900.webp"
+               srcset="assets/cardapio/paginas/pagina-04-520.webp 520w, assets/cardapio/paginas/pagina-04-900.webp 900w, assets/cardapio/paginas/pagina-04-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 4"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="5" aria-label="Página 5 de 15">
+          <img src="assets/cardapio/paginas/pagina-05-900.webp"
+               srcset="assets/cardapio/paginas/pagina-05-520.webp 520w, assets/cardapio/paginas/pagina-05-900.webp 900w, assets/cardapio/paginas/pagina-05-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 5"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="6" aria-label="Página 6 de 15">
+          <img src="assets/cardapio/paginas/pagina-06-900.webp"
+               srcset="assets/cardapio/paginas/pagina-06-520.webp 520w, assets/cardapio/paginas/pagina-06-900.webp 900w, assets/cardapio/paginas/pagina-06-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 6"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="7" aria-label="Página 7 de 15">
+          <img src="assets/cardapio/paginas/pagina-07-900.webp"
+               srcset="assets/cardapio/paginas/pagina-07-520.webp 520w, assets/cardapio/paginas/pagina-07-900.webp 900w, assets/cardapio/paginas/pagina-07-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 7"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="8" aria-label="Página 8 de 15">
+          <img src="assets/cardapio/paginas/pagina-08-900.webp"
+               srcset="assets/cardapio/paginas/pagina-08-520.webp 520w, assets/cardapio/paginas/pagina-08-900.webp 900w, assets/cardapio/paginas/pagina-08-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 8"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="9" aria-label="Página 9 de 15">
+          <img src="assets/cardapio/paginas/pagina-09-900.webp"
+               srcset="assets/cardapio/paginas/pagina-09-520.webp 520w, assets/cardapio/paginas/pagina-09-900.webp 900w, assets/cardapio/paginas/pagina-09-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 9"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="10" aria-label="Página 10 de 15">
+          <img src="assets/cardapio/paginas/pagina-10-900.webp"
+               srcset="assets/cardapio/paginas/pagina-10-520.webp 520w, assets/cardapio/paginas/pagina-10-900.webp 900w, assets/cardapio/paginas/pagina-10-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 10"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="11" aria-label="Página 11 de 15">
+          <img src="assets/cardapio/paginas/pagina-11-900.webp"
+               srcset="assets/cardapio/paginas/pagina-11-520.webp 520w, assets/cardapio/paginas/pagina-11-900.webp 900w, assets/cardapio/paginas/pagina-11-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 11"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="12" aria-label="Página 12 de 15">
+          <img src="assets/cardapio/paginas/pagina-12-900.webp"
+               srcset="assets/cardapio/paginas/pagina-12-520.webp 520w, assets/cardapio/paginas/pagina-12-900.webp 900w, assets/cardapio/paginas/pagina-12-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 12"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="13" aria-label="Página 13 de 15">
+          <img src="assets/cardapio/paginas/pagina-13-900.webp"
+               srcset="assets/cardapio/paginas/pagina-13-520.webp 520w, assets/cardapio/paginas/pagina-13-900.webp 900w, assets/cardapio/paginas/pagina-13-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 13"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="14" aria-label="Página 14 de 15">
+          <img src="assets/cardapio/paginas/pagina-14-900.webp"
+               srcset="assets/cardapio/paginas/pagina-14-520.webp 520w, assets/cardapio/paginas/pagina-14-900.webp 900w, assets/cardapio/paginas/pagina-14-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 14"
+               loading="lazy" decoding="async">
+        </figure>
+        <figure class="pdf-page" data-page="15" aria-label="Página 15 de 15">
+          <img src="assets/cardapio/paginas/pagina-15-900.webp"
+               srcset="assets/cardapio/paginas/pagina-15-520.webp 520w, assets/cardapio/paginas/pagina-15-900.webp 900w, assets/cardapio/paginas/pagina-15-1400.webp 1400w"
+               sizes="(max-width: 899px) 94vw, 900px"
+               width="900" height="1273"
+               alt="Cardápio Duas Cerejas - página 15"
+               loading="lazy" decoding="async">
+        </figure>
       </div>
-      <input class="page-range" id="page-range" type="range" min="1" max="15" value="1" step="1" aria-label="Ir para página">
     </section>
   </main>
 
-  <script src="assets/js/conteudo.js"></script>
-  <script src="assets/js/site.js"></script>
   <script src="assets/js/cardapio.js"></script>
 </body>
 </html>
