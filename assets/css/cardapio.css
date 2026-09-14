@@ -35,3 +35,14 @@
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto!important}
 }
+
+
+/* Modo incorporado na home: mesmo cardapio vertical, sem duplicar o cabecalho principal. */
+.cardapio-page.is-embedded .site-header{display:none}
+.cardapio-page.is-embedded .card-main{padding-top:88px;padding-bottom:48px}
+.cardapio-page.is-embedded .pdf-toolbar{top:14px}
+.cardapio-page.is-embedded .card-intro{margin-bottom:22px}
+@media(max-width:899px){
+  .cardapio-page.is-embedded .card-main{padding-top:76px}
+  .cardapio-page.is-embedded .pdf-toolbar{top:10px}
+}

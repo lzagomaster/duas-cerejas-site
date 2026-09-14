@@ -4,7 +4,9 @@ document.addEventListener("visibilitychange",()=>{document.documentElement.toggl
 const section=document.getElementById("inicio");
 const hero=document.getElementById("hero-stage");
 const stores=document.getElementById("lojas");
-if(!section||!hero||!stores)return;
+const menu=document.getElementById("cardapio-stage");
+const menuFrame=document.getElementById("cardapio-frame");
+if(!section||!hero||!stores||!menu)return;
 
 const track=document.getElementById("stores-track");
 const cards=track?[...track.querySelectorAll(".store-card")]:[];
@@ -15,9 +17,9 @@ const motion=(window.DC_CONTENT&&DC_CONTENT.motion)||{};
 const transitionMs=Math.max(320,Number(motion.stageTransitionMs)||460);
 const wheelThreshold=Math.max(30,Number(motion.wheelThreshold)||56);
 const swipeThreshold=Math.max(30,Number(motion.swipeThreshold)||46);
-const stages=[{kind:"hero",hash:"#inicio"},{kind:"stores",hash:"#lojas"}];
+const stages=[{kind:"hero",hash:"#inicio"},{kind:"stores",hash:"#lojas"},{kind:"menu",hash:"#cardapio"}];
 
-let current=location.hash==="#lojas"?1:0;
+let current=location.hash==="#cardapio"?2:location.hash==="#lojas"?1:0;
 let busy=false,unlockTimer=0,wheelAccum=0,wheelCommitted=false,wheelQuietTimer=0,touchStart=null;
 
 const clampIndex=value=>Math.max(0,Math.min(stages.length-1,value));
@@ -35,6 +37,11 @@ function syncHash(stage){
   if(!history.replaceState)return;
   history.replaceState(null,"",stage.hash);
 }
+function ensureMenuLoaded(){
+  if(!menuFrame||menuFrame.hasAttribute("src"))return;
+  const source=menuFrame.dataset.src;
+  if(source)menuFrame.setAttribute("src",source);
+}
 function applyStage(index,{initial=false}={}){
   index=clampIndex(index);
   if(index===current&&!initial)return;
@@ -44,6 +51,8 @@ function applyStage(index,{initial=false}={}){
   section.dataset.stage=String(current);
   toggleLayer(hero,stage.kind==="hero");
   toggleLayer(stores,stage.kind==="stores");
+  toggleLayer(menu,stage.kind==="menu");
+  if(stage.kind==="menu")ensureMenuLoaded();
   syncHash(stage);
   emit(stage,current,initial);
 
@@ -64,6 +73,7 @@ function prev(){return go(current-1)}
 function releaseWheelGesture(){wheelAccum=0;wheelCommitted=false}
 addEventListener("wheel",event=>{
   if(event.ctrlKey)return;
+  if(current===2)return;
   if(current===1&&track&&track.matches(":hover")&&Math.abs(event.deltaX)>0){return}
   if(Math.abs(event.deltaX)>Math.abs(event.deltaY))return;
   event.preventDefault();
@@ -87,6 +97,7 @@ addEventListener("touchend",event=>{
   if(!touchStart||!event.changedTouches.length){touchStart=null;return}
   const start=touchStart,t=event.changedTouches[0],dx=t.clientX-start.x,dy=t.clientY-start.y;
   touchStart=null;
+  if(current===2)return;
   const distance=Math.abs(dy);
   if(busy||distance<swipeThreshold||distance<Math.abs(dx)*1.12)return;
   go(current+(dy<0?1:-1));
@@ -291,6 +302,7 @@ nextStore?.addEventListener("click",()=>moveStore(1));
 
 addEventListener("keydown",event=>{
   const target=event.target;
+  if(current===2&&target===document.body)return;
   const interactive=target&&/^(INPUT|TEXTAREA|SELECT|BUTTON|A)$/.test(target.tagName);
   if(current===1&&!interactive&&(event.key==="ArrowLeft"||event.key==="ArrowRight")){
     event.preventDefault();moveStore(event.key==="ArrowRight"?1:-1);return;
@@ -312,9 +324,15 @@ document.addEventListener("click",event=>{
   let target=null;
   if(href==="#inicio")target=0;
   else if(href==="#lojas")target=1;
+  else if(href==="#cardapio")target=2;
   if(target===null)return;
   event.preventDefault();
   go(target);
+});
+
+addEventListener("message",event=>{
+  if(!menuFrame||event.source!==menuFrame.contentWindow)return;
+  if(event.data?.type==="dc:menu:back"&&current===2)go(1);
 });
 
 buildStorePagination();

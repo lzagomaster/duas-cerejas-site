@@ -1,3 +1,17 @@
+# Auditoria de Performance - V1.9.5 Candidata
+
+## Alteracao
+- Adicionada terceira etapa da home: Cardapio vertical.
+- O cardapio nao e carregado no primeiro acesso ao Hero nem durante Lojas. O iframe recebe `src` somente ao entrar na etapa Cardapio.
+- Nenhuma segunda copia das 15 paginas foi criada; o projeto reutiliza `cardapio.html`.
+- O scroll do PDF continua nativo e as paginas mantem `loading="lazy"`.
+
+## Impacto esperado
+- Hero e Lojas preservam o mesmo custo inicial da V1.9.4.
+- O custo das paginas do cardapio so aparece quando o visitante realmente entra na terceira etapa.
+
+---
+
 # Auditoria de Performance - V1.9.4 Candidata
 
 ## Hero
@@ -86,3 +100,12 @@ A V1.9.2 usa um coverflow leve e navegavel:
 
 ## Status
 **CANDIDATA.** Nao se torna base oficial sem teste e aprovacao explicita do usuario.
+
+## QA interna V1.9.5
+- Fluxo de etapas confirmado em Chromium: Hero (0) -> Lojas (1) -> Cardapio (2).
+- O iframe do Cardapio permanece sem `src` no Hero e em Lojas; recebe `cardapio.html?embed=1` somente ao entrar na terceira etapa.
+- Cardapio incorporado confirmou 15 paginas e scroll vertical ate Pagina 15 de 15.
+- Em viewport mobile de 390 px, o documento confirmou `clientWidth=390` e `scrollWidth=390`, sem rolagem horizontal.
+- O coverflow permaneceu com 6 cards e area horizontal rolavel (`390 px` visiveis / `1961 px` de conteudo no teste sintetico).
+- Mensagem de retorno no topo do Cardapio confirmou transicao Cardapio -> Lojas.
+- Validacao de sintaxe concluida em `assets/js/site.js`, `assets/js/cardapio.js`, `assets/js/hero.js` e `assets/js/home-conteudo.js`.

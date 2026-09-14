@@ -1,4 +1,32 @@
 (()=>{"use strict";
+const embedded=new URLSearchParams(location.search).get("embed")==="1";
+if(embedded){
+  document.body.classList.add("is-embedded");
+  document.documentElement.classList.add("is-embedded");
+
+  let touchStartY=null;
+  let lastBackSignal=0;
+  const signalBack=()=>{
+    const now=performance.now();
+    if(now-lastBackSignal<650)return;
+    lastBackSignal=now;
+    parent.postMessage({type:"dc:menu:back"},"*");
+  };
+  addEventListener("wheel",event=>{
+    if(scrollY<=1&&event.deltaY<-42)signalBack();
+  },{passive:true});
+  addEventListener("touchstart",event=>{
+    if(event.touches.length===1)touchStartY=event.touches[0].clientY;
+  },{passive:true});
+  addEventListener("touchend",event=>{
+    if(touchStartY===null||!event.changedTouches.length){touchStartY=null;return}
+    const dy=event.changedTouches[0].clientY-touchStartY;
+    touchStartY=null;
+    if(scrollY<=1&&dy>52)signalBack();
+  },{passive:true});
+  addEventListener("touchcancel",()=>{touchStartY=null},{passive:true});
+}
+
 const pages=[...document.querySelectorAll(".pdf-page")];
 const counter=document.getElementById("pdf-counter");
 if(!pages.length||!counter)return;

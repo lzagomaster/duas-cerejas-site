@@ -1,3 +1,14 @@
+## V1.9.5 CANDIDATA - terceiro swipe para Cardapio (2026-09-14)
+- Base desta rodada: V1.9.4 candidata; nenhuma versao e promovida automaticamente a base oficial.
+- A home passa a ter tres etapas verticais: **Hero -> Lojas -> Cardapio**.
+- O terceiro swipe vertical abre o mesmo cardapio que ja existe em `cardapio.html`, sem duplicar paginas ou criar outra fonte de conteudo.
+- O cardapio e carregado sob demanda somente quando o visitante entra nessa terceira etapa.
+- Dentro do Cardapio, a rolagem vertical passa a pertencer ao proprio PDF: o visitante segue da pagina 1 a 15 normalmente.
+- No topo do Cardapio incorporado, um gesto para baixo envia o visitante de volta para Lojas.
+- O modo incorporado oculta apenas o cabecalho interno do `cardapio.html`, evitando dois headers sobrepostos; a apresentacao e as 15 paginas continuam iguais a versao aberta pelo botao Cardapio.
+- Coverflow, fachadas, contatos e Hero de 2,0 s foram preservados.
+- Versao segue **CANDIDATA** e aguarda teste/aprovacao explicita.
+
 ## V1.9.4 CANDIDATA - Hero 2s + cardápio vertical (2026-09-14)
 - Base: V1.9.3, que o usuário confirmou como perfeita antes desta rodada.
 - Hero reduzido de 2,6 s para **2,0 s por fotografia**.

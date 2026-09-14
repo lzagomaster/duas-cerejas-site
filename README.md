@@ -1,3 +1,24 @@
+# Duas Cerejas - Site V1.9.5 Candidata
+
+Esta versao usa a V1.9.4 candidata como fonte desta rodada, mas **nao se torna base oficial automaticamente**.
+
+## Fluxo da home nesta candidata
+1. Hero (2,0 s por foto);
+2. Lojas com coverflow e fachadas;
+3. Cardapio vertical com as mesmas 15 paginas do `cardapio.html`.
+
+## Comportamento do terceiro swipe
+- Um swipe/scroll para baixo a partir de Lojas entra no Cardapio.
+- Ao entrar, o `cardapio.html` e carregado sob demanda em modo incorporado.
+- Depois disso, o scroll fica livre para percorrer o PDF para cima e para baixo.
+- No topo do Cardapio, um gesto para baixo retorna a Lojas.
+- O botao Cardapio do header continua abrindo a pagina dedicada normalmente.
+
+## Regra de aprovacao
+**V1.9.5 CANDIDATA.** So vira base oficial depois do teste e da aprovacao explicita do usuario.
+
+---
+
 # Duas Cerejas - Site V1.9.4 Candidata
 
 Base desta rodada: **V1.9.3**, confirmada pelo usuário como perfeita antes destas alterações. A V1.9.4 continua candidata e só vira base oficial após novo teste e aprovação explícita.
