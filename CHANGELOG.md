@@ -1,3 +1,15 @@
+## V1.9.6 CANDIDATA - abertura otimizada e loading premium (2026-09-14)
+- Base: V1.9.5 funcional, preservando Hero -> Lojas -> Cardapio e todo o coverflow aprovado.
+- Adicionada tela de carregamento curta em fundo preto, com elipse pulsante e barra de progresso discreta.
+- O loading deixa de ser apenas decorativo: a home so e liberada depois que DOM/JS essenciais e a primeira imagem do Hero estao prontas/decodificadas, com watchdog de seguranca para nunca prender o visitante.
+- O Hero continua em 2,0 s por foto, mas o preload da segunda foto so comeca depois que a tela de carregamento libera a experiencia, evitando concorrencia com o primeiro paint.
+- Fachadas das lojas deixaram de depender apenas de `loading=lazy`: os 6 arquivos agora nao possuem `src` na entrada e so sao requisitados quando a etapa Lojas e realmente aberta.
+- Isso retira aproximadamente 179 KB de fachadas do caminho inicial de rede.
+- Cardapio/PDF confirmado fora do caminho inicial: o iframe continua sem `src` na abertura e so recebe `cardapio.html?embed=1` ao entrar na terceira etapa. O PDF de download nao e requisitado automaticamente.
+- Visitas repetidas na mesma aba usam um tempo minimo ainda menor para evitar uma tela de loading desnecessariamente longa quando o navegador ja esta com os recursos em cache.
+- Teste sintetico de integracao confirmou: entrada em Hero sem `src` nas fachadas e sem `src` no iframe; entrada em Lojas ativa as 6 fachadas; entrada em Cardapio ativa o iframe; nenhum erro JavaScript registrado.
+- Versao segue CANDIDATA e nao vira base oficial sem aprovacao explicita.
+
 ## V1.9.5 CANDIDATA - terceiro swipe para Cardapio (2026-09-14)
 - Base desta rodada: V1.9.4 candidata; nenhuma versao e promovida automaticamente a base oficial.
 - A home passa a ter tres etapas verticais: **Hero -> Lojas -> Cardapio**.

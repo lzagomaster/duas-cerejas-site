@@ -393,3 +393,10 @@ body.home-page .hero-layer.is-active{opacity:1;pointer-events:auto}
 @media(prefers-reduced-motion:reduce){
   .menu-layer{transition:none;transform:none}
 }
+
+
+/* V1.9.6 candidata - midia das lojas so entra quando a etapa Lojas e aberta. */
+.store-media img[data-src]{opacity:0}
+.store-media img.is-loaded{opacity:1}
+.store-media img{transition:opacity .28s ease}
+@media(prefers-reduced-motion:reduce){.store-media img{transition:none}}

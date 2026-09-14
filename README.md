@@ -1,3 +1,49 @@
+# Duas Cerejas - Site V1.9.6 Candidata
+
+Esta versao preserva a V1.9.5 funcional e mexe somente na percepcao e no custo da entrada do site. **Nao se torna base oficial automaticamente**; aguarda teste e aprovacao explicita.
+
+## Fluxo preservado
+1. Hero, com troca a cada 2,0 segundos.
+2. Lojas, com coverflow navegavel e fachadas reais.
+3. Cardapio vertical, com rolagem tradicional.
+
+## Nova abertura
+Ao abrir a home, o visitante ve uma tela preta curta com uma elipse pulsante e uma barra de progresso. A experiencia e liberada assim que a primeira foto do Hero estiver pronta para aparecer sem aquele primeiro engasgo visual.
+
+O loading nao espera o site inteiro baixar. A estrategia e proposital: entregar primeiro o que a pessoa precisa ver e jogar o restante para o momento em que for usado.
+
+## O que foi otimizado
+- Primeira foto do Hero continua com prioridade alta.
+- Segunda foto do Hero so comeca a ser pre-carregada depois da liberacao da abertura.
+- As 6 fachadas nao sao mais requisitadas na entrada; so carregam ao abrir Lojas.
+- O cardapio incorporado continua sem `src` ate o terceiro swipe.
+- O arquivo PDF de 12,7 MB e apenas um download opcional e nao participa da abertura da home.
+- Em retorno na mesma aba, o loading usa retencao minima menor porque os recursos ja tendem a estar em cache.
+
+## Como testar
+1. Extraia o ZIP e abra `index.html`.
+2. Recarregue com cache limpo e observe a tela de loading: elipse pulsante + barra, seguida de transicao limpa para o primeiro Hero.
+3. Confirme que o Hero segue trocando a cada 2 s.
+4. Entre em Lojas e confirme que as fachadas aparecem e que o coverflow segue igual.
+5. Entre em Cardapio e confirme a rolagem vertical de 15 paginas.
+6. Volte ao inicio ou recarregue e observe que uma visita repetida deve liberar mais rapidamente.
+
+## Arquivos alterados
+- `index.html`
+- `assets/js/boot.js` (novo)
+- `assets/js/hero.js`
+- `assets/js/site.js`
+- `assets/css/site.css`
+- `README.md`
+- `CHANGELOG.md`
+- `AUDITORIA_PERFORMANCE.md`
+- `VERSAO.txt`
+
+## Regra de aprovacao
+**V1.9.6 CANDIDATA.** So passa a ser base depois do teste e da aprovacao explicita do usuario.
+
+---
+
 # Duas Cerejas - Site V1.9.5 Candidata
 
 Esta versao usa a V1.9.4 candidata como fonte desta rodada, mas **nao se torna base oficial automaticamente**.

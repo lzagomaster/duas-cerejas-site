@@ -42,6 +42,21 @@ function ensureMenuLoaded(){
   const source=menuFrame.dataset.src;
   if(source)menuFrame.setAttribute("src",source);
 }
+let storesMediaLoaded=false;
+function ensureStoresLoaded(){
+  if(storesMediaLoaded)return;
+  storesMediaLoaded=true;
+  const images=[...stores.querySelectorAll("img[data-src]")];
+  images.forEach(img=>{
+    const source=img.dataset.src;
+    if(!source)return;
+    const reveal=()=>{img.classList.add("is-loaded");img.removeAttribute("data-src")};
+    img.addEventListener("load",reveal,{once:true});
+    img.addEventListener("error",reveal,{once:true});
+    img.src=source;
+    if(img.complete&&img.naturalWidth)reveal();
+  });
+}
 function applyStage(index,{initial=false}={}){
   index=clampIndex(index);
   if(index===current&&!initial)return;
@@ -52,6 +67,7 @@ function applyStage(index,{initial=false}={}){
   toggleLayer(hero,stage.kind==="hero");
   toggleLayer(stores,stage.kind==="stores");
   toggleLayer(menu,stage.kind==="menu");
+  if(stage.kind==="stores")ensureStoresLoaded();
   if(stage.kind==="menu")ensureMenuLoaded();
   syncHash(stage);
   emit(stage,current,initial);

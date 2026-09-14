@@ -1,3 +1,31 @@
+# Auditoria de Performance - V1.9.6 Candidata
+
+## Diagnostico da entrada
+O cardapio/PDF nao fazia parte do caminho inicial da home: o iframe ja estava sem `src` e so era ativado na terceira etapa. O PDF de download possui aproximadamente 12,7 MB, mas ele nao e transferido automaticamente na abertura.
+
+O ponto mais importante encontrado foi o carregamento potencial das fachadas. Elas estavam com `loading=lazy`, porem a secao Lojas continua posicionada no mesmo viewport e e escondida por opacidade. Dependendo do navegador, isso permite antecipacao do download. As seis fachadas somam aproximadamente 179 KB.
+
+## Correcao
+- Fachadas migradas para `data-src`; nenhum `src` e emitido na entrada.
+- `site.js` injeta o `src` somente quando a etapa Lojas e aberta.
+- Cardapio continua recebendo `src` somente na etapa Cardapio.
+- `hero.js` nao pre-carrega o segundo slide ate o evento `dc:appready`.
+- `boot.js` aguarda a primeira imagem do Hero estar carregada/decodificada antes da liberacao visual.
+- Watchdog de 4,5 s impede que qualquer falha de imagem retenha o usuario.
+
+## QA de integracao
+Teste sintetico em Chromium headless, usando o DOM/JS reais com recursos visuais substituidos por data URI, confirmou:
+- estado inicial: `Hero`, 6 fachadas sem atributo `src`, iframe do cardapio sem atributo `src`;
+- etapa `Lojas`: as 6 fachadas recebem `src` e concluem carregamento;
+- etapa `Cardapio`: iframe recebe o endereco apenas nesse momento;
+- `DC_APP_READY=true` apos o loading e `body.is-loading=false`;
+- nenhum erro JavaScript durante o fluxo sintetico.
+
+## Observacao
+A tela de loading melhora a percepcao, mas a principal melhoria desta rodada e a remocao de downloads nao essenciais do caminho inicial.
+
+---
+
 # Auditoria de Performance - V1.9.5 Candidata
 
 ## Alteracao

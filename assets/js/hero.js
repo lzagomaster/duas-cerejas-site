@@ -7,6 +7,7 @@ const intervalMs=Math.max(1800,Number(motion.heroIntervalMs)||2600);
 const fadeMs=matchMedia("(prefers-reduced-motion: reduce)").matches?0:340;
 const reduced=fadeMs===0;
 let index=0,front=a,back=b,timer=0,transitionTimer=0,transitionToken=0,active=true,busy=false;
+let appReady=!!window.DC_APP_READY,started=false;
 
 function clearHandlers(img){img.onload=null;img.onerror=null}
 function clearSource(img){clearHandlers(img);img.removeAttribute("srcset");img.removeAttribute("src")}
@@ -35,7 +36,7 @@ function marks(){[...dots.children].forEach((d,i)=>d.classList.toggle("is-active
 function stopTimer(){clearTimeout(timer);timer=0}
 function scheduleNext(){
   stopTimer();
-  if(reduced||!active||document.hidden)return;
+  if(reduced||!active||document.hidden||!appReady)return;
   timer=setTimeout(()=>{
     timer=0;
     if(!active||document.hidden)return;
@@ -97,7 +98,13 @@ function next(user=false){return go(index+1,user)}
 function prev(user=false){return go(index-1,user)}
 function setActive(value){
   active=!!value;
-  if(active)restart();else stopTimer();
+  if(active&&appReady)restart();else stopTimer();
+}
+function startAfterBoot(){
+  if(started)return;
+  started=true;appReady=true;
+  preload(1);
+  restart();
 }
 
 document.getElementById("hero-next")?.addEventListener("click",()=>next(true));
@@ -105,5 +112,7 @@ document.getElementById("hero-prev")?.addEventListener("click",()=>prev(true));
 document.addEventListener("dc:stagechange",event=>setActive(event.detail&&event.detail.kind==="hero"));
 document.addEventListener("visibilitychange",()=>{if(document.hidden)stopTimer();else restart()});
 
-marks();preload(1);restart();
+marks();
+if(appReady)startAfterBoot();
+else document.addEventListener("dc:appready",startAfterBoot,{once:true});
 })();

@@ -8,12 +8,34 @@
 <meta content="dark" name="color-scheme"/>
 <meta content="Duas Cerejas - bolos, doces e lojas para celebrar." name="description"/>
 <title>Duas Cerejas - A sua casa do bolo</title>
+<style id="boot-critical">
+html.js body.home-page.is-loading{overflow:hidden}
+.site-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#050505;color:#fff;opacity:1;visibility:visible;transition:opacity .42s ease,visibility .42s ease}
+.site-loader.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.site-loader-inner{width:min(76vw,260px);display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.site-loader-mark{width:58px;height:34px;border:1.5px solid rgba(255,255,255,.86);border-radius:50%;box-shadow:0 0 0 0 rgba(255,255,255,.12);animation:dc-loader-pulse 1.55s ease-in-out infinite}
+.site-loader-name{margin:0;font-size:10px;font-weight:680;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.site-loader-track{width:100%;height:2px;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.14)}
+.site-loader-progress{display:block;width:100%;height:100%;background:#fff;transform:scaleX(.06);transform-origin:left center;transition:transform .28s cubic-bezier(.2,.7,.2,1)}
+.site-loader-percent{margin:-8px 0 0;font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.38);font-variant-numeric:tabular-nums}
+@keyframes dc-loader-pulse{0%,100%{transform:scale(.94);opacity:.48;box-shadow:0 0 0 0 rgba(255,255,255,.08)}50%{transform:scale(1.04);opacity:1;box-shadow:0 0 0 10px rgba(255,255,255,0)}}
+.no-js .site-loader{display:none!important}.no-js body.home-page.is-loading{overflow:auto}
+@media(prefers-reduced-motion:reduce){.site-loader,.site-loader-progress{transition:none}.site-loader-mark{animation:none;opacity:.9}}
+</style>
 <link href="assets/css/site.css" rel="stylesheet"/>
 <link href="assets/img/logo/duas-cerejas-180.webp" rel="icon" type="image/webp"/>
 <link as="image" fetchpriority="high" href="assets/img/hero/1-aerado-1280.webp" imagesizes="100vw" imagesrcset="assets/img/hero/1-aerado-640.webp 640w, assets/img/hero/1-aerado-1280.webp 1280w, assets/img/hero/1-aerado-1920.webp 1920w" rel="preload"/>
 <script>document.documentElement.className='js';</script>
 </head>
-<body class="home-page">
+<body class="home-page is-loading">
+<div class="site-loader" id="site-loader" role="status" aria-live="polite" aria-label="Carregando Duas Cerejas">
+  <div class="site-loader-inner">
+    <span class="site-loader-mark" aria-hidden="true"></span>
+    <p class="site-loader-name">Duas Cerejas</p>
+    <div class="site-loader-track" aria-hidden="true"><span class="site-loader-progress" id="site-loader-progress"></span></div>
+    <p class="site-loader-percent" id="site-loader-percent">Carregando 6%</p>
+  </div>
+</div>
 <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 <header class="site-header" id="site-header">
 <a aria-label="Duas Cerejas - início" class="brand" href="#inicio">
@@ -55,7 +77,7 @@
 <div class="stores-track-wrapper">
 <ul aria-label="Unidades Duas Cerejas" class="stores-track" id="stores-track" tabindex="0">
 <li class="store-card" data-store="01">
-<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Indaiatuba - Loja 1 Morada do Sol" decoding="async" height="337" loading="lazy" src="assets/img/lojas/loja-01-morada-do-sol.webp" style="object-position:50% 52%" width="594"/></figure><div class="store-card-body">
+<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Indaiatuba - Loja 1 Morada do Sol" decoding="async" height="337" data-src="assets/img/lojas/loja-01-morada-do-sol.webp" style="object-position:50% 52%" width="594"/></figure><div class="store-card-body">
 <p class="store-city">Indaiatuba · Loja 1</p>
 <h3>Morada do Sol</h3>
 <address>Rua Antônio Angelino Rossi, 222<br/>Jardim Morada do Sol · Indaiatuba/SP</address>
@@ -73,7 +95,7 @@
 </div></article>
 </li>
 <li class="store-card" data-store="02">
-<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Indaiatuba - Loja 2 Avenida Conceição" decoding="async" height="337" loading="lazy" src="assets/img/lojas/loja-02-av-conceicao.webp" style="object-position:50% 50%" width="594"/></figure><div class="store-card-body">
+<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Indaiatuba - Loja 2 Avenida Conceição" decoding="async" height="337" data-src="assets/img/lojas/loja-02-av-conceicao.webp" style="object-position:50% 50%" width="594"/></figure><div class="store-card-body">
 <p class="store-city">Indaiatuba · Loja 2</p>
 <h3>Av. Conceição</h3>
 <address>Av. Conceição, 2242<br/>Cidade Nova II · Indaiatuba/SP</address>
@@ -91,7 +113,7 @@
 </div></article>
 </li>
 <li class="store-card" data-store="04">
-<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Campinas - Loja 4 Campos Elíseos" decoding="async" height="337" loading="lazy" src="assets/img/lojas/loja-04-campos-eliseos.webp" style="object-position:50% 52%" width="594"/></figure><div class="store-card-body">
+<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Campinas - Loja 4 Campos Elíseos" decoding="async" height="337" data-src="assets/img/lojas/loja-04-campos-eliseos.webp" style="object-position:50% 52%" width="594"/></figure><div class="store-card-body">
 <p class="store-city">Campinas · Loja 4</p>
 <h3>Campos Elíseos</h3>
 <address>R. Côn. Januário Cunha Barbosa, 176<br/>Jd. Campos Elíseos · Campinas/SP</address>
@@ -109,7 +131,7 @@
 </div></article>
 </li>
 <li class="store-card" data-store="05">
-<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Campinas - Loja 5 Bonfim" decoding="async" height="337" loading="lazy" src="assets/img/lojas/loja-05-bonfim.webp" style="object-position:50% 52%" width="594"/></figure><div class="store-card-body">
+<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Campinas - Loja 5 Bonfim" decoding="async" height="337" data-src="assets/img/lojas/loja-05-bonfim.webp" style="object-position:50% 52%" width="594"/></figure><div class="store-card-body">
 <p class="store-city">Campinas · Loja 5</p>
 <h3>Bonfim</h3>
 <address>Av. Dr. Alberto Sarmento, 857<br/>Bonfim · Campinas/SP</address>
@@ -127,7 +149,7 @@
 </div></article>
 </li>
 <li class="store-card" data-store="06">
-<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Campinas - Loja 6 Nova Europa" decoding="async" height="337" loading="lazy" src="assets/img/lojas/loja-06-nova-europa.webp" style="object-position:50% 46%" width="594"/></figure><div class="store-card-body">
+<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Campinas - Loja 6 Nova Europa" decoding="async" height="337" data-src="assets/img/lojas/loja-06-nova-europa.webp" style="object-position:50% 46%" width="594"/></figure><div class="store-card-body">
 <p class="store-city">Campinas · Loja 6</p>
 <h3>Nova Europa</h3>
 <address>Av. Baden Powell, 1510<br/>Jardim Nova Europa · Campinas/SP</address>
@@ -145,7 +167,7 @@
 </div></article>
 </li>
 <li class="store-card" data-store="07">
-<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Itatiba - Loja 7 Vila Santa Clara" decoding="async" height="337" loading="lazy" src="assets/img/lojas/loja-07-vila-santa-clara.webp" style="object-position:50% 42%" width="594"/></figure><div class="store-card-body">
+<article class="store-card-inner"><figure class="store-media"><img alt="Fachada da Itatiba - Loja 7 Vila Santa Clara" decoding="async" height="337" data-src="assets/img/lojas/loja-07-vila-santa-clara.webp" style="object-position:50% 42%" width="594"/></figure><div class="store-card-body">
 <p class="store-city">Itatiba · Loja 7</p>
 <h3>Vila Santa Clara</h3>
 <address>Av. Vinte e Nove de Abril, 325<br/>Vila Santa Clara · Itatiba/SP</address>
@@ -185,5 +207,6 @@
 <script src="assets/js/home-conteudo.js"></script>
 <script src="assets/js/hero.js"></script>
 <script src="assets/js/site.js"></script>
+<script src="assets/js/boot.js"></script>
 </body>
 </html>

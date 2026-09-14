@@ -1,1 +1,1 @@
-1.9.5-candidata
+1.9.6-candidata
