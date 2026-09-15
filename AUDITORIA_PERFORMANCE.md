@@ -1,3 +1,15 @@
+# Auditoria de Performance - V1.9.7 Candidata
+
+## Correcao GitHub Pages / cache
+- Fachadas continuam fora do carregamento inicial.
+- Cache bust e aplicado a CSS/JS por query string de versao.
+- As imagens de loja continuam carregando somente ao entrar na etapa Lojas.
+- Primeiro card recebe `fetchPriority=high` apenas no momento em que Lojas e aberta.
+- Uma unica tentativa de retry e feita se uma fachada falhar por erro transitorio de rede.
+- Cardapio/PDF continuam fora da entrada inicial.
+
+---
+
 # Auditoria de Performance - V1.9.6 Candidata
 
 ## Diagnostico da entrada

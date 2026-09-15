@@ -1,3 +1,14 @@
+## V1.9.7 CANDIDATA - cache bust e robustez das fachadas no GitHub Pages (2026-09-14)
+- Corrigida falha observada apenas no site publicado: as fachadas podiam aparecer quebradas enquanto funcionavam localmente.
+- Diagnostico: a V1.9.6 passou a usar `data-src` e carregamento sob demanda; o navegador podia reutilizar `site.js` antigo em cache e deixar as imagens sem `src`.
+- Adicionado versionamento de cache (`?v=1.9.7`) aos CSS e JavaScripts referenciados por `index.html` e `cardapio.html`, evitando mistura de HTML novo com assets antigos no GitHub Pages.
+- Adicionada uma ponte minima de lazy-load inline no `index.html`; mesmo com JavaScript externo antigo em cache, a entrada em Lojas consegue ativar as fachadas.
+- URLs lazy das seis fachadas tambem recebem versao para evitar cache negativo/resposta antiga durante publicacoes.
+- Loader de fachadas ganhou uma tentativa curta de retry em caso de erro de rede, sem remover o carregamento sob demanda.
+- O primeiro card recebe prioridade alta somente quando a etapa Lojas e aberta; nenhuma fachada volta a participar do carregamento inicial do Hero.
+- Fluxo e visual preservados: Loader -> Hero 2 s -> Lojas coverflow -> Cardapio vertical.
+- Versao continua CANDIDATA ate teste e aprovacao explicita.
+
 ## V1.9.6 CANDIDATA - abertura otimizada e loading premium (2026-09-14)
 - Base: V1.9.5 funcional, preservando Hero -> Lojas -> Cardapio e todo o coverflow aprovado.
 - Adicionada tela de carregamento curta em fundo preto, com elipse pulsante e barra de progresso discreta.

@@ -46,13 +46,18 @@ let storesMediaLoaded=false;
 function ensureStoresLoaded(){
   if(storesMediaLoaded)return;
   storesMediaLoaded=true;
+  if(typeof window.DC_LOAD_STORE_IMAGES==="function"){
+    window.DC_LOAD_STORE_IMAGES();
+    return;
+  }
   const images=[...stores.querySelectorAll("img[data-src]")];
-  images.forEach(img=>{
+  images.forEach((img,index)=>{
     const source=img.dataset.src;
     if(!source)return;
     const reveal=()=>{img.classList.add("is-loaded");img.removeAttribute("data-src")};
+    img.loading="eager";
+    if(index===0)img.fetchPriority="high";
     img.addEventListener("load",reveal,{once:true});
-    img.addEventListener("error",reveal,{once:true});
     img.src=source;
     if(img.complete&&img.naturalWidth)reveal();
   });

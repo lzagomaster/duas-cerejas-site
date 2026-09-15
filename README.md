@@ -1,3 +1,21 @@
+# Duas Cerejas - Site V1.9.7 Candidata
+
+Patch cirurgico sobre a V1.9.6 para corrigir fachadas quebradas no GitHub Pages sem reverter a otimizacao de carregamento. A versao continua **CANDIDATA** ate aprovacao explicita.
+
+## Correcao desta rodada
+No site publicado, o HTML novo podia ser entregue junto de um `site.js` antigo mantido no cache do navegador. Como a V1.9.6 deixou as fachadas em `data-src` para nao baixa-las na abertura, um JavaScript antigo nao convertia `data-src` em `src`, deixando apenas o texto alternativo da imagem.
+
+A V1.9.7 adiciona versionamento de cache nos CSS/JS e nas URLs lazy das fachadas, garantindo que cada publicacao carregue os arquivos correspondentes. O carregamento continua sob demanda: as fachadas so sao requisitadas ao entrar em Lojas e o cardapio continua sendo carregado apenas no terceiro estagio.
+
+## Teste recomendado apos publicar
+1. Fazer o push da V1.9.7.
+2. Aguardar o deploy do GitHub Pages.
+3. Abrir o site normalmente (nao deve ser necessario Ctrl+F5 por causa do cache bust).
+4. Ir para Lojas e confirmar as seis fachadas.
+5. Recarregar a pagina e repetir o fluxo.
+
+---
+
 # Duas Cerejas - Site V1.9.6 Candidata
 
 Esta versao preserva a V1.9.5 funcional e mexe somente na percepcao e no custo da entrada do site. **Nao se torna base oficial automaticamente**; aguarda teste e aprovacao explicita.
