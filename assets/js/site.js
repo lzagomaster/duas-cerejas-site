@@ -112,13 +112,19 @@ addEventListener("wheel",event=>{
 addEventListener("touchstart",event=>{
   if(event.touches.length!==1)return;
   const t=event.touches[0];
-  touchStart={x:t.clientX,y:t.clientY};
+  touchStart={
+    x:t.clientX,
+    y:t.clientY,
+    inStoreTrack:current===1&&!!track&&track.contains(event.target)
+  };
 },{passive:true});
 addEventListener("touchend",event=>{
   if(!touchStart||!event.changedTouches.length){touchStart=null;return}
   const start=touchStart,t=event.changedTouches[0],dx=t.clientX-start.x,dy=t.clientY-start.y;
   touchStart=null;
   if(current===2)return;
+  /* Um gesto iniciado no carrossel e predominantemente horizontal pertence sempre às lojas. */
+  if(start.inStoreTrack&&Math.abs(dx)>Math.abs(dy)*.9)return;
   const distance=Math.abs(dy);
   if(busy||distance<swipeThreshold||distance<Math.abs(dx)*1.12)return;
   go(current+(dy<0?1:-1));
@@ -150,7 +156,11 @@ function scrollStoreTo(index,{smooth=true}={}){
   const target=Math.max(0,Math.min(cards.length-1,index));
   const card=cards[target];
   const left=storeCenterAtScroll(card)-(track.clientWidth/2);
-  track.scrollTo({left,behavior:smooth&&!reduceStoreMotion.matches?"smooth":"auto"});
+  const behavior=smooth&&!reduceStoreMotion.matches?"smooth":"auto";
+  try{
+    if(typeof track.scrollTo==="function")track.scrollTo({left,behavior});
+    else track.scrollLeft=left;
+  }catch{track.scrollLeft=left}
 }
 function renderPagination(index){
   if(!pagination)return;
@@ -244,6 +254,71 @@ function endStoreDrag(event,cancelled=false){
   const projected=(track?.scrollLeft||0)+(state.velocity*210);
   scrollStoreTo(nearestStoreIndexForScroll(projected));
 }
+
+/* Fallback touch dedicado: iOS/Safari e aparelhos simples nem sempre entregam
+   overflow-x com inércia de forma confiável dentro de uma home travada.
+   O eixo é decidido só após alguns pixels; horizontal move as lojas, vertical
+   continua livre para Hero/Lojas/Cardápio. */
+let storeTouchDrag=null;
+
+track?.addEventListener("touchstart",event=>{
+  if(event.touches.length!==1)return;
+  const t=event.touches[0];
+  storeTouchDrag={
+    id:t.identifier,
+    startX:t.clientX,
+    startY:t.clientY,
+    startScroll:track.scrollLeft,
+    lastScroll:track.scrollLeft,
+    lastTime:performance.now(),
+    velocity:0,
+    axis:null,
+    moved:false
+  };
+},{passive:true});
+
+track?.addEventListener("touchmove",event=>{
+  const state=storeTouchDrag;
+  if(!state||event.touches.length!==1)return;
+  const t=event.touches[0];
+  if(t.identifier!==state.id)return;
+  const dx=t.clientX-state.startX;
+  const dy=t.clientY-state.startY;
+
+  if(!state.axis&&Math.hypot(dx,dy)>7){
+    state.axis=Math.abs(dx)>Math.abs(dy)*1.04?"x":"y";
+    if(state.axis==="x"){
+      state.moved=true;
+      track.classList.add("is-dragging");
+    }
+  }
+  if(state.axis!=="x")return;
+
+  if(event.cancelable)event.preventDefault();
+  const now=performance.now();
+  const nextScroll=state.startScroll-dx;
+  const dt=Math.max(8,now-state.lastTime);
+  const delta=nextScroll-state.lastScroll;
+  const instant=delta/dt;
+  state.velocity=(state.velocity*.72)+(instant*.28);
+  track.scrollLeft=nextScroll;
+  state.lastScroll=track.scrollLeft;
+  state.lastTime=now;
+  scheduleStoreDepth();
+},{passive:false});
+
+function finishStoreTouch(event,cancelled=false){
+  const state=storeTouchDrag;
+  if(!state)return;
+  storeTouchDrag=null;
+  track?.classList.remove("is-dragging");
+  if(cancelled||state.axis!=="x")return;
+  suppressStoreClickUntil=performance.now()+320;
+  const projected=(track?.scrollLeft||0)+(state.velocity*180);
+  scrollStoreTo(nearestStoreIndexForScroll(projected),{smooth:true});
+}
+track?.addEventListener("touchend",event=>finishStoreTouch(event,false),{passive:true});
+track?.addEventListener("touchcancel",event=>finishStoreTouch(event,true),{passive:true});
 
 track?.addEventListener("pointerdown",event=>{
   if(event.pointerType==="touch")return;

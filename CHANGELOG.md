@@ -1,3 +1,15 @@
+## V1.9.8 CANDIDATA - swipe lateral robusto em iPhone e aparelhos simples (2026-09-15)
+- Base: V1.9.7, mantendo a correcao de cache/fachadas publicada com sucesso.
+- Corrigido o ponto fragil do coverflow mobile: a navegacao lateral nao depende mais apenas do `overflow-x` nativo do navegador.
+- Adicionado controlador touch com trava de eixo: gesto horizontal move o carrossel; gesto vertical continua reservado ao fluxo Hero -> Lojas -> Cardapio.
+- `touchmove` horizontal atualiza `scrollLeft` diretamente e usa `preventDefault` somente depois que o eixo horizontal e confirmado, evitando briga com o swipe vertical.
+- Adicionados `-webkit-overflow-scrolling: touch` e ajustes de `scroll-snap` no mobile para melhorar compatibilidade com Safari/iOS e aparelhos de menor desempenho.
+- Adicionado fallback para navegadores antigos que nao suportem `Element.scrollTo({behavior})`.
+- Cache bust atualizado para `?v=1.9.8`, garantindo que GitHub Pages entregue o JavaScript corrigido.
+- QA sintetico touch em viewport 390 px: swipe horizontal moveu `scrollLeft` de 0 para 303 px, trocou da loja 1 para a loja 2 e permaneceu na etapa Lojas; swipe vertical subsequente avancou corretamente para Cardapio.
+- Hero 2 s, loader, fachadas sob demanda e cardapio vertical foram preservados.
+- Versao segue **CANDIDATA** ate teste e aprovacao explicita.
+
 ## V1.9.7 CANDIDATA - cache bust e robustez das fachadas no GitHub Pages (2026-09-14)
 - Corrigida falha observada apenas no site publicado: as fachadas podiam aparecer quebradas enquanto funcionavam localmente.
 - Diagnostico: a V1.9.6 passou a usar `data-src` e carregamento sob demanda; o navegador podia reutilizar `site.js` antigo em cache e deixar as imagens sem `src`.

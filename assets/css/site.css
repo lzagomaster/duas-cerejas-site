@@ -400,3 +400,15 @@ body.home-page .hero-layer.is-active{opacity:1;pointer-events:auto}
 .store-media img.is-loaded{opacity:1}
 .store-media img{transition:opacity .28s ease}
 @media(prefers-reduced-motion:reduce){.store-media img{transition:none}}
+
+/* V1.9.8 candidata - gesto horizontal robusto em iPhone e aparelhos simples. */
+.stores-track{
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+  touch-action:pan-y pinch-zoom;
+}
+.store-media img{-webkit-user-drag:none;user-select:none}
+@media(max-width:760px){
+  .stores-track{scroll-snap-type:x proximity}
+  .store-card{scroll-snap-stop:normal}
+}

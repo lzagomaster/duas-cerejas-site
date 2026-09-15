@@ -1,3 +1,22 @@
+# Auditoria de Performance - V1.9.8 Candidata
+
+## Swipe mobile
+- O carrossel nao depende mais exclusivamente do motor de scroll touch do navegador.
+- O fallback touch atua somente durante o gesto e atualiza `scrollLeft` diretamente.
+- O calculo de profundidade continua limitado a `requestAnimationFrame` e aos 6 cards existentes.
+- O eixo so e assumido apos 7 px de deslocamento, reduzindo falsos positivos e evitando conflito com a navegacao vertical.
+- No mobile, `scroll-snap-stop` deixa de forcar parada obrigatoria em cada card e o snap permanece em `proximity`.
+- Nenhuma imagem, biblioteca ou recurso novo foi adicionado.
+
+## QA touch
+Teste sintetico em Chromium com emulacao touch 390 x 844 confirmou:
+- area rolavel: 390 px visiveis / 1926 px de conteudo no fixture de teste;
+- swipe horizontal: `scrollLeft 0 -> 303`, loja ativa `0 -> 1`, etapa permaneceu `Lojas`;
+- swipe vertical na mesma area: etapa `Lojas -> Cardapio`;
+- nenhum erro JavaScript.
+
+---
+
 # Auditoria de Performance - V1.9.7 Candidata
 
 ## Correcao GitHub Pages / cache

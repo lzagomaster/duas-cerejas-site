@@ -1,3 +1,29 @@
+# Duas Cerejas - Site V1.9.8 Candidata
+
+Patch cirurgico sobre a V1.9.7 para corrigir o swipe lateral das lojas em iPhone/Safari e aparelhos mais simples, sem alterar o fluxo visual aprovado. A versao continua **CANDIDATA** ate aprovacao explicita.
+
+## Correcao desta rodada
+A V1.9.7 confiava no scroll horizontal nativo do navegador para toque. Em alguns iPhones e aparelhos mais simples esse gesto podia nao assumir corretamente a faixa horizontal dentro de uma home com navegacao vertical propria.
+
+A V1.9.8 adiciona um controlador touch dedicado ao carrossel. Depois de alguns pixels ele identifica o eixo do gesto:
+- se for horizontal, a faixa de lojas acompanha o dedo diretamente;
+- se for vertical, o carrossel nao interfere e a home continua navegando Hero -> Lojas -> Cardapio.
+
+O desktop continua com o arraste de mouse/caneta existente. As fachadas continuam carregando somente ao entrar em Lojas e o cardapio continua fora do carregamento inicial.
+
+## Teste recomendado
+1. Publicar a V1.9.8 e abrir no iPhone/Android.
+2. Ir para Lojas.
+3. Arrastar lentamente para a esquerda e para a direita em cima dos cards.
+4. Confirmar que os cards acompanham o dedo e centralizam a unidade mais proxima ao soltar.
+5. Fazer um gesto vertical na mesma area e confirmar que a home continua indo para Cardapio.
+6. Voltar e testar novamente para os dois lados.
+
+## QA sintetico
+Em viewport touch de 390 px, o gesto horizontal moveu a faixa de `0` para `303 px`, alterou a unidade ativa de 1 para 2 e nao mudou de etapa. Em seguida, um gesto vertical na mesma regiao avancou de Lojas para Cardapio. Nenhum erro JavaScript foi registrado no teste.
+
+---
+
 # Duas Cerejas - Site V1.9.7 Candidata
 
 Patch cirurgico sobre a V1.9.6 para corrigir fachadas quebradas no GitHub Pages sem reverter a otimizacao de carregamento. A versao continua **CANDIDATA** ate aprovacao explicita.
